@@ -5,7 +5,7 @@ const PERSONS = [
     {
         id: 'sokrat', name: 'Сократ', region: 'greece', regionLabel: 'Греция',
         period: '470–399 до н.э.', born: '~470 до н.э., Афины', died: '399 до н.э., Афины',
-        role: 'Философ', emoji: '🏛️',
+        role: 'Философ', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfDGcVbqkt4bP-HAVtd21-Sx6H-UCRNx6Klw&s.jpg',
         shortDesc: 'Основоположник западной философии, учитель Платона. Разработал метод диалектики — майевтику.',
         bio: [
@@ -20,7 +20,7 @@ const PERSONS = [
     {
         id: 'aleksandr', name: 'Александр Македонский', region: 'greece', regionLabel: 'Греция',
         period: '356–323 до н.э.', born: '356 до н.э., Пелла', died: '323 до н.э., Вавилон',
-        role: 'Полководец, царь', emoji: '⚔️',
+        role: 'Полководец, царь', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPcYDTDkypy7XsFf6lpBTlaWzW9Jrwlw2iuQ&s.jpg',
         shortDesc: 'Величайший полководец древности, создавший одну из крупнейших империй от Греции до Индии.',
         bio: [
@@ -34,7 +34,7 @@ const PERSONS = [
     {
         id: 'aristotel', name: 'Аристотель', region: 'greece', regionLabel: 'Греция',
         period: '384–322 до н.э.', born: '384 до н.э., Стагир', died: '322 до н.э., Халкида',
-        role: 'Философ, учёный', emoji: '📚',
+        role: 'Философ, учёный', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0jdJmDTwtVPIvfISQxXqJHOaBMhMkxOrtlA&s.jpg',
         shortDesc: 'Ученик Платона и учитель Александра Македонского. Создал энциклопедическую систему знаний античности.',
         bio: [
@@ -48,7 +48,7 @@ const PERSONS = [
     {
         id: 'cezar', name: 'Гай Юлий Цезарь', region: 'rome', regionLabel: 'Рим',
         period: '100–44 до н.э.', born: '100 до н.э., Рим', died: '44 до н.э., Рим',
-        role: 'Полководец, политик, диктатор', emoji: '🦅',
+        role: 'Полководец, политик, диктатор', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8_rH-1pooS3cgEzKq2oH14MPtn9PuyRLL2g&s.jpg',
         shortDesc: 'Выдающийся военачальник и политик, реформировавший Римскую республику и ставший диктатором.',
         bio: [
@@ -62,7 +62,7 @@ const PERSONS = [
     {
         id: 'august', name: 'Октавиан Август', region: 'rome', regionLabel: 'Рим',
         period: '63 до н.э. – 14 н.э.', born: '63 до н.э., Рим', died: '14 н.э., Нола',
-        role: 'Первый римский император', emoji: '👑',
+        role: 'Первый римский император', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlVb8b-n8yohlnpAs1Xc95YLaxCd5361kXzQ&s.jpg',
         shortDesc: 'Внучатый племянник и наследник Цезаря. Основал Римскую империю и установил эпоху Pax Romana.',
         bio: [
@@ -90,7 +90,7 @@ const PERSONS = [
     {
         id: 'perikl', name: 'Перикл', region: 'greece', regionLabel: 'Греция',
         period: '~495–429 до н.э.', born: '~495 до н.э., Афины', died: '429 до н.э., Афины',
-        role: 'Политик, стратег', emoji: '🏺',
+        role: 'Политик, стратег', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt0vXecFCzKHrJCQ1AMRLUmYQxAVm9o9EoAQ&s.jpg',
         shortDesc: 'Выдающийся афинский государственный деятель. При нём возведён Парфенон и расцвела демократия.',
         bio: [
@@ -103,7 +103,7 @@ const PERSONS = [
     {
         id: 'ciceron', name: 'Цицерон', region: 'rome', regionLabel: 'Рим',
         period: '106–43 до н.э.', born: '106 до н.э., Арпинум', died: '43 до н.э.',
-        role: 'Оратор, философ, политик', emoji: '📜',
+        role: 'Оратор, философ, политик', emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjAtJKWcOiXvNBvgMf1pM0S5hsCXBvftwkxw&s.jpg',
         shortDesc: 'Величайший оратор Рима, государственный деятель и философ. Его труды заложили основы латинской прозы.',
         bio: [
@@ -119,7 +119,7 @@ const ARTIFACTS = [
     {
         id: 'partenon', name: 'Парфенон', region: 'greece', regionLabel: 'Греция',
         type: 'Архитектура', year: '447–432 до н.э.', location: 'Акрополь, Афины',
-        emoji: '🏛️',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm2w_A52FHAl1RKAazdlyINxGwZwGF-AI6Sw&s.jpg',
         shortDesc: 'Главный храм богини Афины на афинском Акрополе — вершина дорической архитектуры.',
         description: [
@@ -133,7 +133,7 @@ const ARTIFACTS = [
     {
         id: 'kolizey', name: 'Колизей', region: 'rome', regionLabel: 'Рим',
         type: 'Архитектура', year: '72–80 н.э.', location: 'Рим, Италия',
-        emoji: '🏟️',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSIsKTbaSflWr0xNomqrv4XHTLYtLX3sZRrw&s.jpg',
         shortDesc: 'Крупнейший амфитеатр Древнего Рима, вмещавший до 80 000 зрителей. Символ могущества Империи.',
         description: [
@@ -161,7 +161,7 @@ const ARTIFACTS = [
     {
         id: 'discobole', name: 'Дискобол', region: 'greece', regionLabel: 'Греция',
         type: 'Скульптура', year: '~450 до н.э.', location: 'Национальный музей Рима',
-        emoji: '🗿',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrXh4dVdvy0v1nXJ5C2-J2jSI9U2pmQIdyIQ&s.jpg',
         shortDesc: 'Бронзовая статуя Мирона. Впервые в истории скульптуры запечатлено движение.',
         description: [
@@ -175,7 +175,7 @@ const ARTIFACTS = [
     {
         id: 'panteon', name: 'Пантеон', region: 'rome', regionLabel: 'Рим',
         type: 'Архитектура', year: '118–128 н.э.', location: 'Рим, Италия',
-        emoji: '⛩️',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqsWeven9CaYdtcWgkMwL4qsAFpAMRt178Kw&s.jpg',
         shortDesc: 'Храм всех богов. Купол диаметром 43,3 м оставался самым большим в мире 1300 лет.',
         description: [
@@ -189,7 +189,7 @@ const ARTIFACTS = [
     {
         id: 'iliada', name: 'Илиада', region: 'greece', regionLabel: 'Греция',
         type: 'Литература', year: '~VIII в. до н.э.', location: 'Создана в Греции',
-        emoji: '📜',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThr4h0vwqucJ_plpGNRIbdTjzbv5-rIRPtNA&s.jpg',
         shortDesc: 'Эпическая поэма Гомера о Троянской войне — первый памятник европейской литературы.',
         description: [
@@ -202,7 +202,7 @@ const ARTIFACTS = [
     {
         id: 'sfinks', name: 'Большой Сфинкс', region: 'egypt', regionLabel: 'Египет',
         type: 'Скульптура', year: '~2558–2532 до н.э.', location: 'Гиза, Египет',
-        emoji: '🦁',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJGzZDV4JumjPrRoHk56gYqjhr__PovukbNQ&s.jpg',
         shortDesc: 'Крупнейшая монолитная скульптура мира. Высечена из природной известняковой скалы плато Гиза.',
         description: [
@@ -215,7 +215,7 @@ const ARTIFACTS = [
     {
         id: 'forum', name: 'Форум Романум', region: 'rome', regionLabel: 'Рим',
         type: 'Архитектура', year: 'VI в. до н.э.', location: 'Рим, Италия',
-        emoji: '🏛️',
+        emoji: '',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGOr1STo5VjU2ODtzej5RlVRiZsCGkFFLAzQ&s.jpg',
         shortDesc: 'Главная площадь Древнего Рима — центр политической, религиозной и торговой жизни республики.',
         description: [
@@ -293,7 +293,7 @@ const TIMELINE = [
 const ARTICLES = [
     {
         id: 'democracy', title: 'Рождение демократии в Афинах', category: 'Политика',
-        region: 'greece', emoji: '🗳️',
+        region: 'greece', emoji: '',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Acropol1.jpg/640px-Acropol1.jpg',
         shortDesc: 'Как Клисфен и Перикл создали первую в мире систему народного правления.',
         body: [
@@ -305,7 +305,7 @@ const ARTICLES = [
     },
     {
         id: 'punic', title: 'Пунические войны: Рим против Карфагена', category: 'Войны',
-        region: 'rome', emoji: '⚔️',
+        region: 'rome', emoji: '',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Hannibal_traverse_Alpes.png/640px-Hannibal_traverse_Alpes.png',
         shortDesc: 'Три войны, определившие господство Рима в Средиземноморье.',
         body: [
@@ -329,7 +329,7 @@ const ARTICLES = [
     },
     {
         id: 'philosophy', title: 'Греческая философия: от Сократа до Аристотеля', category: 'Философия',
-        region: 'greece', emoji: '🏛️',
+        region: 'greece', emoji: '',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Sanzio_01.jpg/640px-Sanzio_01.jpg',
         shortDesc: 'Три великих мыслителя, заложивших фундамент западной философии.',
         body: [
@@ -341,7 +341,7 @@ const ARTICLES = [
     },
     {
         id: 'fall-rome', title: 'Падение Западной Римской империи', category: 'История',
-        region: 'rome', emoji: '🏚️',
+        region: 'rome', emoji: '',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Th%C3%A9odore_Chasseriau_-_La_Tepidarium.jpg/640px-Th%C3%A9odore_Chasseriau_-_La_Tepidarium.jpg',
         shortDesc: 'Причины и последствия крушения величайшей державы Древнего мира.',
         body: [
@@ -353,7 +353,7 @@ const ARTICLES = [
     },
     {
         id: 'olympics', title: 'Олимпийские игры в Древней Греции', category: 'Культура',
-        region: 'greece', emoji: '🏅',
+        region: 'greece', emoji: '',
         img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Model_of_Olympia%27s_sanctuary_-_Ancient_Olympia_Museum_%284%29.jpg/640px-Model_of_Olympia%27s_sanctuary_-_Ancient_Olympia_Museum_%284%29.jpg',
         shortDesc: 'История главного спортивного и религиозного праздника античного мира.',
         body: [
@@ -541,7 +541,7 @@ function TimelinePage() {
     const filtered = filter === 'all' ? TIMELINE : TIMELINE.filter(e => e.region === filter);
     return (
         <>
-            <div className="page-header"><h1>📅 Хронология античного мира</h1><p>Ключевые события от зарождения цивилизаций до падения Западного Рима</p></div>
+            <div className="page-header"><h1> Хронология античного мира</h1><p>Ключевые события от зарождения цивилизаций до падения Западного Рима</p></div>
             <div className="container">
                 <div className="filter-bar">
                     {[['all', 'Все события'], ['greece', 'Греция'], ['rome', 'Рим'], ['egypt', 'Египет']].map(([v, l]) => (
@@ -579,7 +579,7 @@ function PersonsPage({ setPage }) {
     });
     return (
         <>
-            <div className="page-header"><h1>👤 Исторические личности</h1><p>Философы, полководцы, правители и учёные античного мира</p></div>
+            <div className="page-header"><h1> Исторические личности</h1><p>Философы, полководцы, правители и учёные античного мира</p></div>
             <div className="container">
                 <input className="search-bar" style={{ display: 'block', width: '100%', padding: '.7rem 1rem', marginBottom: '1.25rem', border: '2px solid var(--border)', borderRadius: 'var(--r-md)', fontSize: '1rem', background: 'var(--surface)', outline: 'none' }} type="text" placeholder="Поиск по имени…" value={search} onChange={e => setSearch(e.target.value)} />
                 <div className="filter-bar">
@@ -950,7 +950,7 @@ function SearchPage({ initQuery, setPage }) {
                     </div>
                 ))}
                 {q.trim() && results.length === 0 && (
-                    <div className="empty"><div className="empty__icon">🔍</div><h3>Ничего не найдено по запросу «{q}»</h3><p>Попробуйте другой запрос</p></div>
+                    <div className="empty"><div className="empty__icon"></div><h3>Ничего не найдено по запросу «{q}»</h3><p>Попробуйте другой запрос</p></div>
                 )}
                 {!q.trim() && <div className="empty"><div className="empty__icon">⌨️</div><h3>Введите запрос</h3><p>Поиск работает по всем разделам сайта</p></div>}
             </div>

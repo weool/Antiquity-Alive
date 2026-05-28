@@ -659,7 +659,6 @@ function PersonDetail({ id, setPage }) {
     );
 }
 
-// ── ARTIFACTS LIST ────────────────────────────────────────────────────────────
 function ArtifactsPage({ setPage }) {
     const [filter, setFilter] = useState('all');
     const [typeFilter, setTypeFilter] = useState('all');
@@ -667,7 +666,7 @@ function ArtifactsPage({ setPage }) {
     const list = ARTIFACTS.filter(a => (filter === 'all' || a.region === filter) && (typeFilter === 'all' || a.type === typeFilter));
     return (
         <>
-            <div className="page-header"><h1>🏺 Артефакты и памятники</h1><p>Архитектура, скульптура и литература, пережившая тысячелетия</p></div>
+            <div className="page-header"><h1>Артефакты и памятники</h1><p>Архитектура, скульптура и литература, пережившая тысячелетия</p></div>
             <div className="container">
                 <div className="filter-bar">
                     {[['all', 'Все цивилизации'], ['greece', 'Греция'], ['rome', 'Рим'], ['egypt', 'Египет']].map(([v, l]) => (
@@ -679,7 +678,7 @@ function ArtifactsPage({ setPage }) {
                         <button key={t} className={`filter-btn${typeFilter === t ? ' active' : ''}`} onClick={() => setTypeFilter(t)}>{t === 'all' ? 'Все типы' : t}</button>
                     ))}
                 </div>
-                {list.length === 0 ? <div className="empty"><div className="empty__icon">🏺</div><h3>Ничего не найдено</h3></div> : (
+                {list.length === 0 ? <div className="empty"><div className="empty__icon"></div><h3>Ничего не найдено</h3></div> : (
                     <div className="cards-grid">
                         {list.map(a => (
                             <div key={a.id} className="card" onClick={() => setPage('artifact-' + a.id)}>
@@ -700,7 +699,6 @@ function ArtifactsPage({ setPage }) {
     );
 }
 
-// ── ARTIFACT DETAIL ───────────────────────────────────────────────────────────
 function ArtifactDetail({ id, setPage }) {
     const a = ARTIFACTS.find(x => x.id === id);
     if (!a) return <div className="container section"><p>Артефакт не найден.</p></div>;
@@ -756,7 +754,7 @@ function ArtifactDetail({ id, setPage }) {
 function RegionsPage({ setPage }) {
     return (
         <>
-            <div className="page-header"><h1>🗺️ Великие цивилизации</h1><p>Три цивилизации, изменившие мир</p></div>
+            <div className="page-header"><h1>Великие цивилизации</h1><p>Три цивилизации, изменившие мир</p></div>
             <div className="container section">
                 <div className="regions-grid">
                     {REGIONS.map(r => (
@@ -779,7 +777,6 @@ function RegionsPage({ setPage }) {
     );
 }
 
-// ── REGION DETAIL ─────────────────────────────────────────────────────────────
 function RegionDetail({ id, setPage }) {
     const r = REGIONS.find(x => x.id === id);
     if (!r) return <div className="container section"><p>Цивилизация не найдена.</p></div>;
@@ -848,7 +845,7 @@ function ArticlesPage({ setPage }) {
     const list = filter === 'all' ? ARTICLES : ARTICLES.filter(a => a.region === filter);
     return (
         <>
-            <div className="page-header"><h1>📖 Статьи</h1><p>Подробные материалы по истории, культуре и философии античности</p></div>
+            <div className="page-header"><h1>Статьи</h1><p>Подробные материалы по истории, культуре и философии античности</p></div>
             <div className="container">
                 <div className="filter-bar">
                     {[['all', 'Все'], ['greece', 'Греция'], ['rome', 'Рим'], ['egypt', 'Египет']].map(([v, l]) => (
@@ -873,7 +870,6 @@ function ArticlesPage({ setPage }) {
     );
 }
 
-// ── ARTICLE DETAIL ────────────────────────────────────────────────────────────
 function ArticleDetail({ id, setPage }) {
     const a = ARTICLES.find(x => x.id === id);
     if (!a) return <div className="container section"><p>Статья не найдена.</p></div>;
@@ -902,7 +898,6 @@ function ArticleDetail({ id, setPage }) {
     );
 }
 
-// ── SEARCH PAGE ───────────────────────────────────────────────────────────────
 function SearchPage({ initQuery, setPage }) {
     const [q, setQ] = useState(initQuery || '');
     const results = searchAll(q);
@@ -915,7 +910,7 @@ function SearchPage({ initQuery, setPage }) {
     };
     return (
         <>
-            <div className="page-header"><h1>🔍 Поиск</h1><p>Личности, артефакты, цивилизации, события, статьи</p></div>
+            <div className="page-header"><h1> Поиск</h1><p>Личности, артефакты, цивилизации, события, статьи</p></div>
             <div className="container">
                 <div className="search-bar">
                     <input type="text" placeholder="Введите запрос — например, «Цезарь», «Парфенон», «Рим»…" value={q} onChange={e => setQ(e.target.value)} autoFocus />
@@ -979,7 +974,3 @@ export default function App() {
     );
 }
 
-
-}
-
-export default App;

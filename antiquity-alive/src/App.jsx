@@ -6,7 +6,7 @@ const PERSONS = [
         id: 'sokrat', name: 'Сократ', region: 'greece', regionLabel: 'Греция',
         period: '470–399 до н.э.', born: '~470 до н.э., Афины', died: '399 до н.э., Афины',
         role: 'Философ', emoji: '🏛️',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Socrate_du_Louvre.jpg/400px-Socrate_du_Louvre.jpg',
+        img: 'https://levelvan.ru/pcontent/socrates-6/biography.jpg',
         shortDesc: 'Основоположник западной философии, учитель Платона. Разработал метод диалектики — майевтику.',
         bio: [
             'Сократ — один из величайших мыслителей в истории человечества, заложивший основы западной философии. Он родился в Афинах около 470 г. до н.э. в семье скульптора Софрониска.',
@@ -21,7 +21,7 @@ const PERSONS = [
         id: 'aleksandr', name: 'Александр Македонский', region: 'greece', regionLabel: 'Греция',
         period: '356–323 до н.э.', born: '356 до н.э., Пелла', died: '323 до н.э., Вавилон',
         role: 'Полководец, царь', emoji: '⚔️',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/AlexanderTheGreat_Bust.jpg/400px-AlexanderTheGreat_Bust.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPcYDTDkypy7XsFf6lpBTlaWzW9Jrwlw2iuQ&s.jpg',
         shortDesc: 'Величайший полководец древности, создавший одну из крупнейших империй от Греции до Индии.',
         bio: [
             'Александр III Македонский родился в Пелле в 356 г. до н.э. Сын царя Филиппа II и Олимпиады, он получил блестящее образование под руководством Аристотеля.',
@@ -35,7 +35,7 @@ const PERSONS = [
         id: 'aristotel', name: 'Аристотель', region: 'greece', regionLabel: 'Греция',
         period: '384–322 до н.э.', born: '384 до н.э., Стагир', died: '322 до н.э., Халкида',
         role: 'Философ, учёный', emoji: '📚',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/400px-Aristotle_Altemps_Inv8575.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0jdJmDTwtVPIvfISQxXqJHOaBMhMkxOrtlA&s.jpg',
         shortDesc: 'Ученик Платона и учитель Александра Македонского. Создал энциклопедическую систему знаний античности.',
         bio: [
             'Аристотель родился в Стагире (Македония) в 384 г. до н.э. В 17 лет поступил в академию Платона в Афинах, где учился и преподавал около 20 лет.',
@@ -49,7 +49,7 @@ const PERSONS = [
         id: 'cezar', name: 'Гай Юлий Цезарь', region: 'rome', regionLabel: 'Рим',
         period: '100–44 до н.э.', born: '100 до н.э., Рим', died: '44 до н.э., Рим',
         role: 'Полководец, политик, диктатор', emoji: '🦅',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Julius_Caesar_bust%2C_Vatican_Museums.jpg/400px-Julius_Caesar_bust%2C_Vatican_Museums.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8_rH-1pooS3cgEzKq2oH14MPtn9PuyRLL2g&s.jpg',
         shortDesc: 'Выдающийся военачальник и политик, реформировавший Римскую республику и ставший диктатором.',
         bio: [
             'Гай Юлий Цезарь родился 100 г. до н.э. в патрицианской семье рода Юлиев. С юности проявил выдающиеся способности к ораторскому искусству и политике.',
@@ -63,7 +63,7 @@ const PERSONS = [
         id: 'august', name: 'Октавиан Август', region: 'rome', regionLabel: 'Рим',
         period: '63 до н.э. – 14 н.э.', born: '63 до н.э., Рим', died: '14 н.э., Нола',
         role: 'Первый римский император', emoji: '👑',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Octavian_Augustus.jpg/400px-Octavian_Augustus.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlVb8b-n8yohlnpAs1Xc95YLaxCd5361kXzQ&s.jpg',
         shortDesc: 'Внучатый племянник и наследник Цезаря. Основал Римскую империю и установил эпоху Pax Romana.',
         bio: [
             'Гай Октавий, будущий Август, родился в Риме в 63 г. до н.э. После убийства Цезаря он был объявлен его наследником.',
@@ -77,7 +77,7 @@ const PERSONS = [
         id: 'kleopatra', name: 'Клеопатра VII', region: 'egypt', regionLabel: 'Египет',
         period: '69–30 до н.э.', born: '~69 до н.э., Александрия', died: '30 до н.э., Александрия',
         role: 'Царица Египта', emoji: '𓂀',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Kleopatra-VII.-Altes-Museum-Berlin1.jpg/400px-Kleopatra-VII.-Altes-Museum-Berlin1.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAS8SV0kv0slJ-Tps55HBx3JjFHJC6jDotbw&s.jpg',
         shortDesc: 'Последняя царица эллинистического Египта, первая Птолемеида, освоившая египетский язык.',
         bio: [
             'Клеопатра VII Филопатор — последняя из династии Птолемеев, правившая Египтом с 51 по 30 г. до н.э. Первая представительница своей династии, освоившая египетский язык.',
@@ -91,7 +91,7 @@ const PERSONS = [
         id: 'perikl', name: 'Перикл', region: 'greece', regionLabel: 'Греция',
         period: '~495–429 до н.э.', born: '~495 до н.э., Афины', died: '429 до н.э., Афины',
         role: 'Политик, стратег', emoji: '🏺',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bust_Pericles_Chiaramonti_Vatican.jpg/400px-Bust_Pericles_Chiaramonti_Vatican.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt0vXecFCzKHrJCQ1AMRLUmYQxAVm9o9EoAQ&s.jpg',
         shortDesc: 'Выдающийся афинский государственный деятель. При нём возведён Парфенон и расцвела демократия.',
         bio: [
             'Перикл — виднейший политик эпохи расцвета Афинской демократии. Он руководил городом почти 30 лет, превратив Афины в культурный и политический центр Греции.',
@@ -104,7 +104,7 @@ const PERSONS = [
         id: 'ciceron', name: 'Цицерон', region: 'rome', regionLabel: 'Рим',
         period: '106–43 до н.э.', born: '106 до н.э., Арпинум', died: '43 до н.э.',
         role: 'Оратор, философ, политик', emoji: '📜',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/M.-Tullius-Cicero.jpg/400px-M.-Tullius-Cicero.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjAtJKWcOiXvNBvgMf1pM0S5hsCXBvftwkxw&s.jpg',
         shortDesc: 'Величайший оратор Рима, государственный деятель и философ. Его труды заложили основы латинской прозы.',
         bio: [
             'Марк Туллий Цицерон — выдающийся оратор, политик и философ Римской республики. Его речи против Катилины стали образцом политического красноречия.',
@@ -120,7 +120,7 @@ const ARTIFACTS = [
         id: 'partenon', name: 'Парфенон', region: 'greece', regionLabel: 'Греция',
         type: 'Архитектура', year: '447–432 до н.э.', location: 'Акрополь, Афины',
         emoji: '🏛️',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/640px-The_Parthenon_in_Athens.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRm2w_A52FHAl1RKAazdlyINxGwZwGF-AI6Sw&s.jpg',
         shortDesc: 'Главный храм богини Афины на афинском Акрополе — вершина дорической архитектуры.',
         description: [
             'Парфенон — храм, посвящённый богине Афине Парфенос, возведённый на Акрополе в 447–432 гг. до н.э. Строительство велось под руководством архитекторов Иктина и Калликрата по инициативе Перикла.',
@@ -134,7 +134,7 @@ const ARTIFACTS = [
         id: 'kolizey', name: 'Колизей', region: 'rome', regionLabel: 'Рим',
         type: 'Архитектура', year: '72–80 н.э.', location: 'Рим, Италия',
         emoji: '🏟️',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/640px-Colosseo_2020.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSIsKTbaSflWr0xNomqrv4XHTLYtLX3sZRrw&s.jpg',
         shortDesc: 'Крупнейший амфитеатр Древнего Рима, вмещавший до 80 000 зрителей. Символ могущества Империи.',
         description: [
             'Колизей (Амфитеатр Флавиев) — крупнейший амфитеатр в Римской империи. Строительство началось при Веспасиане в 72 г. н.э. и завершено при Тите в 80 г. н.э.',
@@ -148,7 +148,7 @@ const ARTIFACTS = [
         id: 'piramidy', name: 'Пирамиды Гизы', region: 'egypt', regionLabel: 'Египет',
         type: 'Архитектура', year: '~2560–2490 до н.э.', location: 'Гиза, Египет',
         emoji: '𓂀',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/640px-All_Gizah_Pyramids.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOKlq8i00v3bFlq2mPrhdIjGpdaBC54Xil4g&s.jpg',
         shortDesc: 'Единственное из Семи чудес Древнего мира, сохранившееся до наших дней.',
         description: [
             'Комплекс Гизы включает три пирамиды — Хеопса, Хефрена и Микерина, а также Большого Сфинкса. Пирамида Хеопса: высота 146,5 м, основание 230×230 м, около 2,3 млн каменных блоков.',
@@ -162,7 +162,7 @@ const ARTIFACTS = [
         id: 'discobole', name: 'Дискобол', region: 'greece', regionLabel: 'Греция',
         type: 'Скульптура', year: '~450 до н.э.', location: 'Национальный музей Рима',
         emoji: '🗿',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Discobolus_in_National_Roman_Museum.jpg/400px-Discobolus_in_National_Roman_Museum.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrXh4dVdvy0v1nXJ5C2-J2jSI9U2pmQIdyIQ&s.jpg',
         shortDesc: 'Бронзовая статуя Мирона. Впервые в истории скульптуры запечатлено движение.',
         description: [
             'Дискобол создан афинским скульптором Мироном около 450 г. до н.э. Оригинал утрачен; сохранились мраморные римские копии.',
@@ -176,7 +176,7 @@ const ARTIFACTS = [
         id: 'panteon', name: 'Пантеон', region: 'rome', regionLabel: 'Рим',
         type: 'Архитектура', year: '118–128 н.э.', location: 'Рим, Италия',
         emoji: '⛩️',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Il_Pantheon_di_Roma.jpg/640px-Il_Pantheon_di_Roma.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqsWeven9CaYdtcWgkMwL4qsAFpAMRt178Kw&s.jpg',
         shortDesc: 'Храм всех богов. Купол диаметром 43,3 м оставался самым большим в мире 1300 лет.',
         description: [
             'Пантеон построен при Адриане в 118–128 гг. н.э. Это одно из наилучше сохранившихся зданий Древнего Рима.',
@@ -190,7 +190,7 @@ const ARTIFACTS = [
         id: 'iliada', name: 'Илиада', region: 'greece', regionLabel: 'Греция',
         type: 'Литература', year: '~VIII в. до н.э.', location: 'Создана в Греции',
         emoji: '📜',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Papyrus_Oxyrhynchus_1172.jpg/400px-Papyrus_Oxyrhynchus_1172.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThr4h0vwqucJ_plpGNRIbdTjzbv5-rIRPtNA&s.jpg',
         shortDesc: 'Эпическая поэма Гомера о Троянской войне — первый памятник европейской литературы.',
         description: [
             'Илиада — эпическая поэма, приписываемая Гомеру, датируемая VIII в. до н.э. 24 песни, 15 693 стиха.',
@@ -203,7 +203,7 @@ const ARTIFACTS = [
         id: 'sfinks', name: 'Большой Сфинкс', region: 'egypt', regionLabel: 'Египет',
         type: 'Скульптура', year: '~2558–2532 до н.э.', location: 'Гиза, Египет',
         emoji: '🦁',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Great_Sphinx_of_Giza_-_20080716a.jpg/640px-Great_Sphinx_of_Giza_-_20080716a.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJGzZDV4JumjPrRoHk56gYqjhr__PovukbNQ&s.jpg',
         shortDesc: 'Крупнейшая монолитная скульптура мира. Высечена из природной известняковой скалы плато Гиза.',
         description: [
             'Большой Сфинкс — монументальная скульптура, изображающая лежащего льва с человеческой головой. Длина 73 м, высота 20 м.',
@@ -216,7 +216,7 @@ const ARTIFACTS = [
         id: 'forum', name: 'Форум Романум', region: 'rome', regionLabel: 'Рим',
         type: 'Архитектура', year: 'VI в. до н.э.', location: 'Рим, Италия',
         emoji: '🏛️',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Forum_romanum_6k_%285765116310%29.jpg/640px-Forum_romanum_6k_%285765116310%29.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGOr1STo5VjU2ODtzej5RlVRiZsCGkFFLAzQ&s.jpg',
         shortDesc: 'Главная площадь Древнего Рима — центр политической, религиозной и торговой жизни республики.',
         description: [
             'Форум Романум — центральная площадь Рима, место проведения выборов, народных собраний, судебных заседаний и религиозных церемоний.',
@@ -231,7 +231,7 @@ const REGIONS = [
     {
         id: 'greece', name: 'Древняя Греция', period: 'VIII–I вв. до н.э.',
         emoji: '🏛️', color: '#1a6fa8', bgColor: '#dbeafe',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Acropolis_of_Athens_01361.JPG/640px-Acropolis_of_Athens_01361.JPG',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZaSZO4DWK5Br-S8veky7AxoA02R3o4QK3XQ&s.JPG',
         shortDesc: 'Колыбель западной цивилизации: демократия, философия, театр, Олимпийские игры.',
         fullDesc: [
             'Древняя Греция — одна из наиболее влиятельных цивилизаций в истории человечества. Это была совокупность сотен городов-государств (полисов), объединённых общим языком, религией и культурой.',
@@ -245,7 +245,7 @@ const REGIONS = [
     {
         id: 'rome', name: 'Древний Рим', period: 'VIII в. до н.э. – V в. н.э.',
         emoji: '🦅', color: '#9b2226', bgColor: '#fde8e8',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/640px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkNh_OYF0NRVWVX4e0LYYojA2_tA4ncEYOjQ&s.jpg',
         shortDesc: 'Величайшая империя Древнего мира: право, архитектура, дороги — наследие Рима живёт по сей день.',
         fullDesc: [
             'Рим прошёл путь от небольшого города на берегах Тибра до крупнейшей державы, объединившей большую часть Европы, Северной Африки и Ближнего Востока.',
@@ -259,7 +259,7 @@ const REGIONS = [
     {
         id: 'egypt', name: 'Древний Египет', period: 'XXXI–I вв. до н.э.',
         emoji: '𓂀', color: '#c97b1a', bgColor: '#fef3c7',
-        img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/640px-All_Gizah_Pyramids.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwMEVsdOmlQQAvn5WPDnkdWqPyKpLAjs0RrQ&s.jpg',
         shortDesc: 'Древнейшая великая цивилизация: пирамиды, иероглифы, медицина, искусство.',
         fullDesc: [
             'Древний Египет — одна из древнейших и наиболее продолжительных цивилизаций в истории, просуществовавшая более трёх тысяч лет.',

@@ -801,6 +801,17 @@ function RegionDetail({ id, setPage }) {
                         {r.fullDesc.map((p, i) => <p key={i}>{p}</p>)}
                         <h2>Ключевые факты</h2>
                         <ul>{r.keyFacts.map((f, i) => <li key={i}>{f}</li>)}</ul>
+                        {r.id === 'rome' && (
+  <>
+    <h2>Карта Римской империи</h2>
+    <img 
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Roman_Empire_Trajan_117AD.png/640px-Roman_Empire_Trajan_117AD.png" 
+      alt="Карта Римской империи" 
+      style={{ width: '100%', borderRadius: 'var(--r-md)', marginBottom: '1rem' }}
+    />
+    <p>Максимальная протяжённость империи при императоре Траяне (117 г. н.э.).</p>
+  </>
+)}
                         {rPersons.length > 0 && <>
                             <h2>Известные личности</h2>
                             <div className="related-row">

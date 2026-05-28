@@ -230,7 +230,7 @@ const ARTIFACTS = [
 const REGIONS = [
     {
         id: 'greece', name: 'Древняя Греция', period: 'VIII–I вв. до н.э.',
-        emoji: '🏛️', color: '#1a6fa8', bgColor: '#dbeafe',
+        emoji: '', color: '#1a6fa8', bgColor: '#dbeafe',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZaSZO4DWK5Br-S8veky7AxoA02R3o4QK3XQ&s.JPG',
         shortDesc: 'Колыбель западной цивилизации: демократия, философия, театр, Олимпийские игры.',
         fullDesc: [
@@ -244,7 +244,7 @@ const REGIONS = [
     },
     {
         id: 'rome', name: 'Древний Рим', period: 'VIII в. до н.э. – V в. н.э.',
-        emoji: '🦅', color: '#9b2226', bgColor: '#fde8e8',
+        emoji: '', color: '#9b2226', bgColor: '#fde8e8',
         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkNh_OYF0NRVWVX4e0LYYojA2_tA4ncEYOjQ&s.jpg',
         shortDesc: 'Величайшая империя Древнего мира: право, архитектура, дороги — наследие Рима живёт по сей день.',
         fullDesc: [
@@ -413,7 +413,7 @@ function Footer({ setPage }) {
             <div className="footer__inner">
                 <div>
                     <div className="footer__brand">Antiquity Alive</div>
-                    <p className="footer__desc">Информационно-справочный сайт об истории античного мира. Греция, Рим, Египет.</p>
+                    <p className="footer__desc">сайт об истории античного мира. Греция, Рим, Египет.</p>
                 </div>
                 <div>
                     <h4>Разделы</h4>
@@ -431,7 +431,7 @@ function Footer({ setPage }) {
                 </div>
             </div>
             <div className="footer__bottom">
-                <p>© 2025 Antiquity Alive — учебный проект. В.А. Василькова, БПИ243, НИУ ВШЭ. Соответствует ГОСТ ЕСПД.</p>
+                <p>© 2025 Antiquity Alive учебный проект</p>
             </div>
         </footer>
     );
@@ -801,16 +801,28 @@ function RegionDetail({ id, setPage }) {
                         {r.fullDesc.map((p, i) => <p key={i}>{p}</p>)}
                         <h2>Ключевые факты</h2>
                         <ul>{r.keyFacts.map((f, i) => <li key={i}>{f}</li>)}</ul>
-                        {r.id === 'rome' && (
-  <>
-    <h2>Карта Римской империи</h2>
-    <img 
-      src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Roman_Empire_Trajan_117AD.png/640px-Roman_Empire_Trajan_117AD.png" 
-      alt="Карта Римской империи" 
-      style={{ width: '100%', borderRadius: 'var(--r-md)', marginBottom: '1rem' }}
-    />
-    <p>Максимальная протяжённость империи при императоре Траяне (117 г. н.э.).</p>
-  </>
+            {r.id === 'greece' && (
+              <>
+                <h2>Карта греческой колонизации</h2>
+                <img 
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_8ZSWk-RoaG_meuoI4hv_LQqs6s1dOrhQaQ&s.png"
+                  alt="Греческие колонии в архаический период"
+                  style={{ width: '100%', borderRadius: '12px', marginBottom: '1rem' }}
+                />
+                <p>Территории расселения греков и крупнейшие колонии (VIII–VI вв. до н.э.).</p>
+              </>
+            )}
+            {r.id === 'egypt' && (
+              <>
+                <h2>Карта Древнего Египта</h2>
+                <img 
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStkokhVmoZ4MEeLXUFh3EhtDrAp78uwBz2tg&s.png"
+                  alt="Карта Древнего Египта с городами и храмами"
+                  style={{ width: '100%', borderRadius: '12px', marginBottom: '1rem' }}
+                />
+                <p>Долина Нила — колыбель египетской цивилизации. Верхний и Нижний Египет.</p>
+              </>
+            )}
 )}
                         {rPersons.length > 0 && <>
                             <h2>Известные личности</h2>

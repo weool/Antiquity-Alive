@@ -6,7 +6,7 @@ const PERSONS = [
         id: 'sokrat', name: 'Сократ', region: 'greece', regionLabel: 'Греция',
         period: '470–399 до н.э.', born: '~470 до н.э., Афины', died: '399 до н.э., Афины',
         role: 'Философ', emoji: '🏛️',
-        img: 'https://gefter.ru/archive/4748.jpg',
+        img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfDGcVbqkt4bP-HAVtd21-Sx6H-UCRNx6Klw&s.jpg',
         shortDesc: 'Основоположник западной философии, учитель Платона. Разработал метод диалектики — майевтику.',
         bio: [
             'Сократ — один из величайших мыслителей в истории человечества, заложивший основы западной философии. Он родился в Афинах около 470 г. до н.э. в семье скульптора Софрониска.',

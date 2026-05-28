@@ -1,975 +1,426 @@
-import React, { useState, useCallback } from 'react';
-import './index.css';
-
-const PERSONS = [
-  {
-    id: 'sokrat', name: 'Сократ', region: 'greece', regionLabel: 'Греция',
-    period: '470–399 до н.э.', born: '~470 до н.э., Афины', died: '399 до н.э., Афины',
-    role: 'Философ', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Socrate_du_Louvre.jpg/400px-Socrate_du_Louvre.jpg',
-    shortDesc: 'Основоположник западной философии, учитель Платона. Разработал метод диалектики — майевтику.',
-    bio: [
-      'Сократ — один из величайших мыслителей в истории человечества, заложивший основы западной философии. Он родился в Афинах около 470 г. до н.э. в семье скульптора Софрониска.',
-      'В отличие от других философов, Сократ не оставил письменных трудов. Всё, что известно о нём, дошло через сочинения его учеников — прежде всего Платона и Ксенофонта.',
-      'Главным методом Сократа была «майевтика» — метод философского диалога, направленный на обнаружение истины через последовательные вопросы. Собеседник постепенно приходил к пониманию противоречий в собственных суждениях.',
-      'В 399 г. до н.э. Сократ был обвинён в развращении афинской молодёжи и введении новых богов. Приговорённый к смерти, он отказался от побега и принял яд цикуты.',
-    ],
-    achievements: ['Разработка метода майевтики', 'Основание этической философии', 'Воспитание Платона и Ксенофонта', 'Введение понятия добродетели как знания'],
-    tags: ['Философия', 'Этика', 'Диалектика'],
-  },
-  {
-    id: 'aleksandr', name: 'Александр Македонский', region: 'greece', regionLabel: 'Греция',
-    period: '356–323 до н.э.', born: '356 до н.э., Пелла', died: '323 до н.э., Вавилон',
-    role: 'Полководец, царь', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/AlexanderTheGreat_Bust.jpg/400px-AlexanderTheGreat_Bust.jpg',
-    shortDesc: 'Величайший полководец древности, создавший одну из крупнейших империй от Греции до Индии.',
-    bio: [
-      'Александр III Македонский родился в Пелле в 356 г. до н.э. Сын царя Филиппа II и Олимпиады, он получил блестящее образование под руководством Аристотеля.',
-      'В возрасте 20 лет, унаследовав трон, Александр немедленно приступил к завоеванию Персидской империи. За 13 лет непрерывных походов он завоевал Персию, Египет, Среднюю Азию и часть Индии.',
-      'Александр активно распространял греческую культуру на завоёванных землях — этот процесс получил название эллинизации. Он основал более 70 городов, в том числе Александрию Египетскую.',
-    ],
-    achievements: ['Завоевание Персидской империи', 'Создание державы от Греции до Инда', 'Основание Александрии Египетской', 'Распространение эллинистической культуры'],
-    tags: ['Военное дело', 'Политика', 'Эллинизм'],
-  },
-  {
-    id: 'aristotel', name: 'Аристотель', region: 'greece', regionLabel: 'Греция',
-    period: '384–322 до н.э.', born: '384 до н.э., Стагир', died: '322 до н.э., Халкида',
-    role: 'Философ, учёный', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/400px-Aristotle_Altemps_Inv8575.jpg',
-    shortDesc: 'Ученик Платона и учитель Александра Македонского. Создал энциклопедическую систему знаний античности.',
-    bio: [
-      'Аристотель родился в Стагире (Македония) в 384 г. до н.э. В 17 лет поступил в академию Платона в Афинах, где учился и преподавал около 20 лет.',
-      'После смерти Платона Аристотель стал воспитателем молодого Александра Македонского. В 335 г. до н.э. основал в Афинах собственную школу — Ликей.',
-      'Труды Аристотеля охватывают все области знания: логику, физику, биологию, этику, политику, риторику, поэтику. Он систематизировал и классифицировал знания античного мира.',
-    ],
-    achievements: ['Создание формальной логики', 'Основание Ликея', 'Энциклопедические труды по биологии и физике', 'Разработка системы категорий'],
-    tags: ['Философия', 'Наука', 'Логика'],
-  },
-  {
-    id: 'cezar', name: 'Гай Юлий Цезарь', region: 'rome', regionLabel: 'Рим',
-    period: '100–44 до н.э.', born: '100 до н.э., Рим', died: '44 до н.э., Рим',
-    role: 'Полководец, политик, диктатор', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Julius_Caesar_bust%2C_Vatican_Museums.jpg/400px-Julius_Caesar_bust%2C_Vatican_Museums.jpg',
-    shortDesc: 'Выдающийся военачальник и политик, реформировавший Римскую республику и ставший диктатором.',
-    bio: [
-      'Гай Юлий Цезарь родился 100 г. до н.э. в патрицианской семье рода Юлиев. С юности проявил выдающиеся способности к ораторскому искусству и политике.',
-      'В 49 г. до н.э., перейдя реку Рубикон с войсками, он развязал гражданскую войну. Победив Помпея, Цезарь стал фактически единоличным правителем Рима.',
-      '15 марта 44 г. до н.э. Цезарь был убит группой сенаторов во главе с Брутом и Кассием, опасавшихся установления монархии.',
-    ],
-    achievements: ['Завоевание Галлии', 'Реформа римского календаря (Юлианский)', 'Реформы государственного управления', '«Записки о Галльской войне»'],
-    tags: ['Политика', 'Военное дело', 'Реформы'],
-  },
-  {
-    id: 'august', name: 'Октавиан Август', region: 'rome', regionLabel: 'Рим',
-    period: '63 до н.э. – 14 н.э.', born: '63 до н.э., Рим', died: '14 н.э., Нола',
-    role: 'Первый римский император', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Octavian_Augustus.jpg/400px-Octavian_Augustus.jpg',
-    shortDesc: 'Внучатый племянник и наследник Цезаря. Основал Римскую империю и установил эпоху Pax Romana.',
-    bio: [
-      'Гай Октавий, будущий Август, родился в Риме в 63 г. до н.э. После убийства Цезаря он был объявлен его наследником.',
-      'Победив в гражданских войнах всех соперников, Октавиан стал единственным правителем Рима. В 27 г. до н.э. сенат присвоил ему титул «Август».',
-      'Эпоха Августа — золотой век римской литературы: Вергилий, Гораций, Овидий творили при его дворе. «Я принял Рим кирпичным, а оставляю мраморным».',
-    ],
-    achievements: ['Основание Римской империи', 'Установление Pax Romana', 'Золотой век римской литературы', 'Масштабное строительство в Риме'],
-    tags: ['Политика', 'Военное дело', 'Культура'],
-  },
-  {
-    id: 'kleopatra', name: 'Клеопатра VII', region: 'egypt', regionLabel: 'Египет',
-    period: '69–30 до н.э.', born: '~69 до н.э., Александрия', died: '30 до н.э., Александрия',
-    role: 'Царица Египта', emoji: '𓂀',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Kleopatra-VII.-Altes-Museum-Berlin1.jpg/400px-Kleopatra-VII.-Altes-Museum-Berlin1.jpg',
-    shortDesc: 'Последняя царица эллинистического Египта, первая Птолемеида, освоившая египетский язык.',
-    bio: [
-      'Клеопатра VII Филопатор — последняя из династии Птолемеев, правившая Египтом с 51 по 30 г. до н.э. Первая представительница своей династии, освоившая египетский язык.',
-      'Союз с Юлием Цезарем позволил ей удержать власть. После смерти Цезаря она стала союзницей Марка Антония.',
-      'После вторжения Октавиана Августа в Египет Клеопатра покончила с собой. Египет стал римской провинцией — конец эпохи эллинизма.',
-    ],
-    achievements: ['Первая Птолемеид, освоившая египетский язык', 'Сохранение независимости Египта на 20 лет', 'Союзы с Цезарем и Антонием'],
-    tags: ['Политика', 'Дипломатия', 'Эллинизм'],
-  },
-  {
-    id: 'perikl', name: 'Перикл', region: 'greece', regionLabel: 'Греция',
-    period: '~495–429 до н.э.', born: '~495 до н.э., Афины', died: '429 до н.э., Афины',
-    role: 'Политик, стратег', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Bust_Pericles_Chiaramonti_Vatican.jpg/400px-Bust_Pericles_Chiaramonti_Vatican.jpg',
-    shortDesc: 'Выдающийся афинский государственный деятель. При нём возведён Парфенон и расцвела демократия.',
-    bio: [
-      'Перикл — виднейший политик эпохи расцвета Афинской демократии. Он руководил городом почти 30 лет, превратив Афины в культурный и политический центр Греции.',
-      'По его инициативе на Акрополе был возведён Парфенон и ряд других великих сооружений. Перикл финансировал строительство из средств Делосского союза.',
-    ],
-    achievements: ['Строительство Парфенона', 'Укрепление Афинской демократии', 'Создание Делосского союза', 'Культурный расцвет Афин'],
-    tags: ['Политика', 'Архитектура', 'Демократия'],
-  },
-  {
-    id: 'ciceron', name: 'Цицерон', region: 'rome', regionLabel: 'Рим',
-    period: '106–43 до н.э.', born: '106 до н.э., Арпинум', died: '43 до н.э.',
-    role: 'Оратор, философ, политик', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/M.-Tullius-Cicero.jpg/400px-M.-Tullius-Cicero.jpg',
-    shortDesc: 'Величайший оратор Рима, государственный деятель и философ. Его труды заложили основы латинской прозы.',
-    bio: [
-      'Марк Туллий Цицерон — выдающийся оратор, политик и философ Римской республики. Его речи против Катилины стали образцом политического красноречия.',
-      'Цицерон создал обширную философскую и риторическую литературу на латинском языке, ставшую образцом стиля на многие века.',
-    ],
-    achievements: ['«Речи против Катилины»', 'Трактаты по риторике и философии', 'Консул Рима (63 до н.э.)', 'Создание латинской философской терминологии'],
-    tags: ['Ораторство', 'Философия', 'Политика'],
-  },
-];
-
-const ARTIFACTS = [
-  {
-    id: 'partenon', name: 'Парфенон', region: 'greece', regionLabel: 'Греция',
-    type: 'Архитектура', year: '447–432 до н.э.', location: 'Акрополь, Афины',
-    emoji: '🏛️',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/640px-The_Parthenon_in_Athens.jpg',
-    shortDesc: 'Главный храм богини Афины на афинском Акрополе — вершина дорической архитектуры.',
-    description: [
-      'Парфенон — храм, посвящённый богине Афине Парфенос, возведённый на Акрополе в 447–432 гг. до н.э. Строительство велось под руководством архитекторов Иктина и Калликрата по инициативе Перикла.',
-      'Храм сложен из белого пентелийского мрамора. Длина — 69,5 м, ширина — 30,9 м. Особенность — применение оптических коррекций: колонны слегка наклонены внутрь, создавая ощущение идеальной прямолинейности.',
-      'Внутри стояла хрисоэлефантинная статуя Афины работы Фидия — около 12 м высотой, из золота и слоновой кости. Сегодня она утеряна.',
-    ],
-    significance: 'Парфенон — эталон дорического ордера и символ золотого века Афин. Он оказал колоссальное влияние на всю западную архитектуру.',
-    tags: ['Архитектура', 'Религия', 'Классическая Греция'],
-  },
-  {
-    id: 'kolizey', name: 'Колизей', region: 'rome', regionLabel: 'Рим',
-    type: 'Архитектура', year: '72–80 н.э.', location: 'Рим, Италия',
-    emoji: '🏟️',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/640px-Colosseo_2020.jpg',
-    shortDesc: 'Крупнейший амфитеатр Древнего Рима, вмещавший до 80 000 зрителей. Символ могущества Империи.',
-    description: [
-      'Колизей (Амфитеатр Флавиев) — крупнейший амфитеатр в Римской империи. Строительство началось при Веспасиане в 72 г. н.э. и завершено при Тите в 80 г. н.э.',
-      'Размеры: длина 188 м, ширина 156 м, высота 48 м. Вмещал от 50 до 80 тысяч зрителей. Под ареной — гипогей: клетки для зверей, механизмы для подъёма декораций.',
-      'Три яруса арок чередуют дорические, ионические и коринфские ордеры. Система 80 подъёмников доставляла животных прямо на арену.',
-    ],
-    significance: 'Колизей — вершина римской инженерии. Его конструктивные решения (арки, бетон, ярусная система) повлияли на строительство стадионов по всему миру.',
-    tags: ['Архитектура', 'Инженерия', 'Зрелища'],
-  },
-  {
-    id: 'piramidy', name: 'Пирамиды Гизы', region: 'egypt', regionLabel: 'Египет',
-    type: 'Архитектура', year: '~2560–2490 до н.э.', location: 'Гиза, Египет',
-    emoji: '𓂀',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/640px-All_Gizah_Pyramids.jpg',
-    shortDesc: 'Единственное из Семи чудес Древнего мира, сохранившееся до наших дней.',
-    description: [
-      'Комплекс Гизы включает три пирамиды — Хеопса, Хефрена и Микерина, а также Большого Сфинкса. Пирамида Хеопса: высота 146,5 м, основание 230×230 м, около 2,3 млн каменных блоков.',
-      'Пирамида Хеопса — единственное из Семи чудес, сохранившееся практически целиком. На протяжении 3800 лет она оставалась самым высоким сооружением на Земле.',
-      'Точность строительства поразительна: стороны основания отличаются по длине не более чем на 20 см, а ориентация по сторонам света выполнена с точностью до 0,05°.',
-    ],
-    significance: 'Свидетельство высочайшего уровня математических и инженерных знаний Древнего Египта.',
-    tags: ['Архитектура', 'Религия', 'Инженерия'],
-  },
-  {
-    id: 'discobole', name: 'Дискобол', region: 'greece', regionLabel: 'Греция',
-    type: 'Скульптура', year: '~450 до н.э.', location: 'Национальный музей Рима',
-    emoji: '🗿',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Discobolus_in_National_Roman_Museum.jpg/400px-Discobolus_in_National_Roman_Museum.jpg',
-    shortDesc: 'Бронзовая статуя Мирона. Впервые в истории скульптуры запечатлено движение.',
-    description: [
-      'Дискобол создан афинским скульптором Мироном около 450 г. до н.э. Оригинал утрачен; сохранились мраморные римские копии.',
-      'Статуя изображает атлета в высшей точке замаха. Мирон впервые в истории скульптуры запечатлел движение — до этого греческие статуи были статичны.',
-      'Тонкое понимание анатомии и динамики: тело закручено по спирали, мышцы напряжены, лицо атлета спокойно — олицетворение kalos kagathos.',
-    ],
-    significance: 'Революция в истории скульптуры: передача мгновения движения вместо статичной позы.',
-    tags: ['Скульптура', 'Спорт', 'Классическое искусство'],
-  },
-  {
-    id: 'panteon', name: 'Пантеон', region: 'rome', regionLabel: 'Рим',
-    type: 'Архитектура', year: '118–128 н.э.', location: 'Рим, Италия',
-    emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Il_Pantheon_di_Roma.jpg/640px-Il_Pantheon_di_Roma.jpg',
-    shortDesc: 'Храм всех богов. Купол диаметром 43,3 м оставался самым большим в мире 1300 лет.',
-    description: [
-      'Пантеон построен при Адриане в 118–128 гг. н.э. Это одно из наилучше сохранившихся зданий Древнего Рима.',
-      'Купол диаметром 43,3 м и высотой 21,7 м. В вершине — окулус диаметром 9 м, единственный источник света.',
-      'Купол отлит из бетона переменного состава: у основания тяжёлый, к вершине — всё более лёгкий из пемзы.',
-    ],
-    significance: 'Пантеон вдохновил Брунеллески и весь Ренессанс. Диаметр купола превзошли лишь в 1436 году.',
-    tags: ['Архитектура', 'Инженерия', 'Религия'],
-  },
-  {
-    id: 'iliada', name: 'Илиада', region: 'greece', regionLabel: 'Греция',
-    type: 'Литература', year: '~VIII в. до н.э.', location: 'Создана в Греции',
-    emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Papyrus_Oxyrhynchus_1172.jpg/400px-Papyrus_Oxyrhynchus_1172.jpg',
-    shortDesc: 'Эпическая поэма Гомера о Троянской войне — первый памятник европейской литературы.',
-    description: [
-      'Илиада — эпическая поэма, приписываемая Гомеру, датируемая VIII в. до н.э. 24 песни, 15 693 стиха.',
-      'Повествует о нескольких неделях десятого года Троянской войны. Персонажи — первые полноценные характеры мировой литературы.',
-    ],
-    significance: 'Основа всей западной литературной традиции. Александр Македонский возил её с собой в походах.',
-    tags: ['Литература', 'Мифология', 'Война'],
-  },
-  {
-    id: 'sfinks', name: 'Большой Сфинкс', region: 'egypt', regionLabel: 'Египет',
-    type: 'Скульптура', year: '~2558–2532 до н.э.', location: 'Гиза, Египет',
-    emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Great_Sphinx_of_Giza_-_20080716a.jpg/640px-Great_Sphinx_of_Giza_-_20080716a.jpg',
-    shortDesc: 'Крупнейшая монолитная скульптура мира. Высечена из природной известняковой скалы плато Гиза.',
-    description: [
-      'Большой Сфинкс — монументальная скульптура, изображающая лежащего льва с человеческой головой. Длина 73 м, высота 20 м.',
-      'По общепринятой версии, создан при фараоне Хефрене (IV династия). Лицо статуи предположительно является портретом фараона.',
-    ],
-    significance: 'Один из наиболее узнаваемых символов Древнего Египта и мировой цивилизации.',
-    tags: ['Скульптура', 'Религия', 'Монументальное искусство'],
-  },
-  {
-    id: 'forum', name: 'Форум Романум', region: 'rome', regionLabel: 'Рим',
-    type: 'Архитектура', year: 'VI в. до н.э.', location: 'Рим, Италия',
-    emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Forum_romanum_6k_%285765116310%29.jpg/640px-Forum_romanum_6k_%285765116310%29.jpg',
-    shortDesc: 'Главная площадь Древнего Рима — центр политической, религиозной и торговой жизни республики.',
-    description: [
-      'Форум Романум — центральная площадь Рима, место проведения выборов, народных собраний, судебных заседаний и религиозных церемоний.',
-      'Комплекс включал храмы, базилики, арки и колонны, возводившиеся на протяжении нескольких веков.',
-    ],
-    significance: 'Образец для городских форумов по всей Римской империи.',
-    tags: ['Архитектура', 'Политика', 'Городская жизнь'],
-  },
-];
-
-const REGIONS = [
-  {
-    id: 'greece', name: 'Древняя Греция', period: 'VIII–I вв. до н.э.',
-    emoji: '', color: '#1a6fa8', bgColor: '#dbeafe',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Acropolis_of_Athens_01361.JPG/640px-Acropolis_of_Athens_01361.JPG',
-    shortDesc: 'Колыбель западной цивилизации: демократия, философия, театр, Олимпийские игры.',
-    fullDesc: [
-      'Древняя Греция — одна из наиболее влиятельных цивилизаций в истории человечества. Это была совокупность сотен городов-государств (полисов), объединённых общим языком, религией и культурой.',
-      'Афины в V в. до н.э. достигли расцвета: здесь возникла демократия, воздвигнут Парфенон, расцвела трагедия (Эсхил, Софокл, Еврипид) и философия (Сократ, Платон, Аристотель).',
-    ],
-    keyFacts: ['Родина демократии (Афины, V в. до н.э.)', 'Олимпийские игры с 776 г. до н.э.', 'Основание колоний от Испании до Чёрного моря', 'Философия, математика, медицина, театр'],
-    capital: 'Афины (наиболее значимый полис)', religion: 'Политеизм (Зевс, Афина, Аполлон…)', language: 'Древнегреческий',
-    personIds: ['sokrat', 'aleksandr', 'aristotel', 'perikl'],
-    artifactIds: ['partenon', 'discobole', 'iliada'],
-  },
-  {
-    id: 'rome', name: 'Древний Рим', period: 'VIII в. до н.э. – V в. н.э.',
-    emoji: '', color: '#9b2226', bgColor: '#fde8e8',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/640px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg',
-    shortDesc: 'Величайшая империя Древнего мира: право, архитектура, дороги — наследие Рима живёт по сей день.',
-    fullDesc: [
-      'Рим прошёл путь от небольшого города на берегах Тибра до крупнейшей державы, объединившей большую часть Европы, Северной Африки и Ближнего Востока.',
-      'Главный вклад Рима — право: римское частное и публичное право легло в основу правовых систем большинства современных государств.',
-    ],
-    keyFacts: ['Основание — 753 г. до н.э.', 'В период расцвета ~70 млн подданных', '400 000 км дорог по всей империи', 'Латинский язык — основа романских языков'],
-    capital: 'Рим', religion: 'Римский пантеон (Юпитер, Марс, Венера…)', language: 'Латинский',
-    personIds: ['cezar', 'august', 'ciceron'],
-    artifactIds: ['kolizey', 'panteon', 'forum'],
-  },
-  {
-    id: 'egypt', name: 'Древний Египет', period: 'XXXI–I вв. до н.э.',
-    emoji: '𓂀', color: '#c97b1a', bgColor: '#fef3c7',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/All_Gizah_Pyramids.jpg/640px-All_Gizah_Pyramids.jpg',
-    shortDesc: 'Древнейшая великая цивилизация: пирамиды, иероглифы, медицина, искусство.',
-    fullDesc: [
-      'Древний Египет — одна из древнейших и наиболее продолжительных цивилизаций в истории, просуществовавшая более трёх тысяч лет.',
-      'Египтяне верили в загробную жизнь — это определило всю их культуру: мумификацию, гробницы, «Книгу мёртвых». Фараон считался воплощением бога Хора.',
-    ],
-    keyFacts: ['Объединение ~3100 до н.э.', 'Иероглифы — одна из первых письменных систем', 'Пирамида Хеопса — единственное из Семи чудес', '365-дневный календарь'],
-    capital: 'Мемфис, Фивы, Александрия', religion: 'Египетский пантеон (Ра, Осирис, Исида…)', language: 'Египетский (иероглифы)',
-    personIds: ['kleopatra'],
-    artifactIds: ['piramidy', 'sfinks'],
-  },
-];
-
-const TIMELINE = [
-  { id:1, year:'3100 до н.э.', title:'Объединение Египта', region:'egypt', desc:'Фараон Нармер объединил Верхний и Нижний Египет, создав первое великое государство.' },
-  { id:2, year:'2560 до н.э.', title:'Пирамида Хеопса', region:'egypt', desc:'Возведена Великая пирамида в Гизе — единственное из Семи чудес, дошедшее до наших дней.' },
-  { id:3, year:'776 до н.э.', title:'Первые Олимпийские игры', region:'greece', desc:'В Олимпии прошли первые Игры — общегреческий праздник в честь Зевса.' },
-  { id:4, year:'753 до н.э.', title:'Основание Рима', region:'rome', desc:'Ромул основал город Рим на берегах Тибра. Начало одной из величайших цивилизаций.' },
-  { id:5, year:'508 до н.э.', title:'Реформы Клисфена', region:'greece', desc:'Клисфен заложил основы афинской демократии — первой в истории системы народного правления.' },
-  { id:6, year:'490 до н.э.', title:'Марафонская битва', region:'greece', desc:'Афинское войско победило персов при Марафоне.' },
-  { id:7, year:'447 до н.э.', title:'Строительство Парфенона', region:'greece', desc:'По инициативе Перикла начато возведение Парфенона на Акрополе.' },
-  { id:8, year:'399 до н.э.', title:'Казнь Сократа', region:'greece', desc:'Сократ приговорён к смерти. Его гибель — символ конфликта личности и государства.' },
-  { id:9, year:'336 до н.э.', title:'Александр — царь Македонии', region:'greece', desc:'После убийства Филиппа II царём стал 20-летний Александр.' },
-  { id:10, year:'264 до н.э.', title:'Первая Пуническая война', region:'rome', desc:'Начало войн между Римом и Карфагеном.' },
-  { id:11, year:'44 до н.э.', title:'Убийство Цезаря', region:'rome', desc:'Цезарь убит в мартовские иды. Сенаторы под руководством Брута.' },
-  { id:12, year:'30 до н.э.', title:'Смерть Клеопатры', region:'egypt', desc:'Последняя царица Египта покончила с собой. Египет стал римской провинцией.' },
-  { id:13, year:'27 до н.э.', title:'Основание Римской империи', region:'rome', desc:'Октавиан получил титул Августа. Начало Принципата и эпохи Pax Romana.' },
-  { id:14, year:'80 н.э.', title:'Открытие Колизея', region:'rome', desc:'Открытие Амфитеатра Флавиев. 100 дней игр в честь открытия.' },
-  { id:15, year:'476 н.э.', title:'Падение Западного Рима', region:'rome', desc:'Одоакр сверг последнего императора Ромула Августула. Конец античной эпохи.' },
-];
-
-const ARTICLES = [
-  {
-    id: 'democracy', title: 'Рождение демократии в Афинах', category: 'Политика',
-    region: 'greece', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Acropol1.jpg/640px-Acropol1.jpg',
-    shortDesc: 'Как Клисфен и Перикл создали первую в мире систему народного правления.',
-    body: [
-      { heading: 'Предпосылки', text: 'К VI в. до н.э. Афины переживали острый социально-политический кризис. Знать (эвпатриды) монополизировала власть, долговое рабство разоряло крестьян. Солон в 594 г. до н.э. провёл первые реформы: отменил долговое рабство и разделил граждан на имущественные разряды.' },
-      { heading: 'Реформы Клисфена', text: 'В 508–507 гг. до н.э. Клисфен заменил родовые племена десятью территориальными филами. Он учредил Совет пятисот (буле) и ввёл остракизм — процедуру изгнания граждан, опасных для государства. Эти реформы заложили фундамент народовластия.' },
-      { heading: 'Расцвет при Перикле', text: 'При Перикле (461–429 до н.э.) афинская демократия достигла расцвета. Жалованье за участие в управлении позволило бедным гражданам реально участвовать в политической жизни. Все должности стали выборными или замещаться по жребию.' },
-    ],
-    tags: ['Демократия', 'Афины', 'Политические реформы'],
-  },
-  {
-    id: 'punic', title: 'Пунические войны: Рим против Карфагена', category: 'Войны',
-    region: 'rome', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Hannibal_traverse_Alpes.png/640px-Hannibal_traverse_Alpes.png',
-    shortDesc: 'Три войны, определившие господство Рима в Средиземноморье.',
-    body: [
-      { heading: 'Первая Пуническая война (264–241 до н.э.)', text: 'Причиной стал конфликт из-за Сицилии. Рим, впервые создав боевой флот, одержал победу и получил свою первую провинцию за пределами Апеннинского полуострова.' },
-      { heading: 'Вторая Пуническая война (218–201 до н.э.)', text: 'Ганнибал Барка переправился через Альпы со слонами и нанёс Риму ряд сокрушительных поражений, включая Канны (216 до н.э.). Однако Рим не сдался. Сципион Африканский перенёс войну в Африку и разбил Ганнибала при Заме.' },
-      { heading: 'Итоги', text: 'После Третьей Пунической войны (149–146 до н.э.) Карфаген был разрушен. Рим стал господствующей державой всего Средиземноморья.' },
-    ],
-    tags: ['Войны', 'Рим', 'Карфаген', 'Ганнибал'],
-  },
-  {
-    id: 'egypt-religion', title: 'Религия Древнего Египта', category: 'Религия',
-    region: 'egypt', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Egypte_louvre_066_mural.jpg/640px-Egypte_louvre_066_mural.jpg',
-    shortDesc: 'Пантеон богов, загробный мир и мумификация — три тысячи лет непрерывной традиции.',
-    body: [
-      { heading: 'Боги Египта', text: 'Египетский пантеон насчитывал более 2000 богов. Главными считались Ра (солнце), Осирис (загробный мир), Исида (материнство и магия), Хор (небо и фараон), Анубис (смерть).' },
-      { heading: 'Культ загробной жизни', text: 'Египтяне верили, что после смерти душа (Ба) покидает тело и путешествует в загробный мир Дуат. Для этого необходимо было сохранить тело — отсюда мумификация. Сердце умершего взвешивалось на весах против пера богини Маат.' },
-      { heading: 'Роль фараона', text: 'Фараон являлся живым воплощением бога Хора и сыном Ра. После смерти он становился Осирисом. Это делало его не просто правителем, но и верховным жрецом, связующим звеном между миром богов и людей.' },
-    ],
-    tags: ['Религия', 'Мифология', 'Египет'],
-  },
-  {
-    id: 'philosophy', title: 'Греческая философия: от Сократа до Аристотеля', category: 'Философия',
-    region: 'greece', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Sanzio_01.jpg/640px-Sanzio_01.jpg',
-    shortDesc: 'Три великих мыслителя, заложивших фундамент западной философии.',
-    body: [
-      { heading: 'Сократ и майевтика', text: 'Сократ не оставил трудов, но его метод диалога (майевтика) произвёл революцию в мышлении. Задавая вопросы, он показывал собеседнику противоречия в его суждениях, ведя к истинному знанию.' },
-      { heading: 'Платон и мир идей', text: 'Платон развил учение Сократа, создав концепцию «мира идей»: реальный мир — лишь тень совершенных идей. Его «Государство» — первый в истории трактат о политическом устройстве общества.' },
-      { heading: 'Аристотель — систематизатор', text: 'Аристотель отверг учение об идеях и создал энциклопедическую систему знаний. Его формальная логика оставалась главным инструментом научного мышления вплоть до XIX века.' },
-    ],
-    tags: ['Философия', 'Платон', 'Сократ', 'Аристотель'],
-  },
-  {
-    id: 'fall-rome', title: 'Падение Западной Римской империи', category: 'История',
-    region: 'rome', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Th%C3%A9odore_Chasseriau_-_La_Tepidarium.jpg/640px-Th%C3%A9odore_Chasseriau_-_La_Tepidarium.jpg',
-    shortDesc: 'Причины и последствия крушения величайшей державы Древнего мира.',
-    body: [
-      { heading: 'Внутренние причины', text: 'В III–IV вв. Рим сотрясала череда гражданских войн и дворцовых переворотов. Армия диктовала свою волю, экономика разрушалась, налоги душили население. Коррупция проникла на все уровни управления.' },
-      { heading: 'Внешнее давление', text: 'С севера на империю давили германские племена — вестготы, вандалы, гунны. В 410 г. Аларих разграбил Рим — впервые за 800 лет город был взят врагом.' },
-      { heading: '476 год и его значение', text: 'В 476 г. германский военачальник Одоакр сверг последнего западного императора — Ромула Августула. Историки условно считают эту дату концом Античности и началом Средних веков.' },
-    ],
-    tags: ['Рим', 'История', 'Падение империи'],
-  },
-  {
-    id: 'olympics', title: 'Олимпийские игры в Древней Греции', category: 'Культура',
-    region: 'greece', emoji: '',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Model_of_Olympia%27s_sanctuary_-_Ancient_Olympia_Museum_%284%29.jpg/640px-Model_of_Olympia%27s_sanctuary_-_Ancient_Olympia_Museum_%284%29.jpg',
-    shortDesc: 'История главного спортивного и религиозного праздника античного мира.',
-    body: [
-      { heading: 'Происхождение', text: 'Первые достоверно зафиксированные Олимпийские игры прошли в 776 г. до н.э. в Олимпии — городе в Элиде на Пелопоннесе. Игры посвящались Зевсу и проводились каждые 4 года.' },
-      { heading: 'Священное перемирие', text: 'На период Игр объявлялось экехерия — священное перемирие. Все военные действия прекращались, и атлеты из враждующих полисов могли свободно добраться до Олимпии.' },
-      { heading: 'Виды состязаний', text: 'Программа включала бег (стадий, диаулос, долихос), пятиборье (бег, прыжок, метание диска и копья, борьба), кулачный бой, панкратион и гонки на колесницах.' },
-    ],
-    tags: ['Спорт', 'Религия', 'Культура', 'Греция'],
-  },
-];
-
-const REG_COLOR = { greece: '#1a6fa8', rome: '#9b2226', egypt: '#c97b1a' };
-
-function searchAll(q) {
-  if (!q.trim()) return [];
-  const l = q.toLowerCase();
-  const res = [];
-  PERSONS.forEach(p => { if ([p.name,p.shortDesc,p.role].some(s=>s.toLowerCase().includes(l))) res.push({ type:'person', label:'Личность', emoji:p.emoji, id:p.id, title:p.name, desc:p.shortDesc }); });
-  ARTIFACTS.forEach(a => { if ([a.name,a.shortDesc,a.type].some(s=>s.toLowerCase().includes(l))) res.push({ type:'artifact', label:'Артефакт', emoji:a.emoji, id:a.id, title:a.name, desc:a.shortDesc }); });
-  REGIONS.forEach(r => { if ([r.name,r.shortDesc].some(s=>s.toLowerCase().includes(l))) res.push({ type:'region', label:'Цивилизация', emoji:r.emoji, id:r.id, title:r.name, desc:r.shortDesc }); });
-  ARTICLES.forEach(a => { if ([a.title,a.shortDesc,a.category].some(s=>s.toLowerCase().includes(l))) res.push({ type:'article', label:'Статья', emoji:a.emoji, id:a.id, title:a.title, desc:a.shortDesc }); });
-  TIMELINE.forEach(e => { if ([e.title,e.desc].some(s=>s.toLowerCase().includes(l))) res.push({ type:'timeline', label:'Событие', emoji:'📅', id:`ev${e.id}`, title:e.title, desc:`${e.year} — ${e.desc}` }); });
-  return res;
+:root {
+  --primary:      #7c1d1d;
+  --primary-dark: #5a1515;
+  --primary-light:#a83232;
+  --gold:         #c9963a;
+  --gold-light:   #e8b84b;
+  --bg:           #fdf8f0;
+  --bg2:          #f5ede0;
+  --surface:      #fffdf8;
+  --border:       #ddd0b8;
+  --border-light: #ede5d5;
+  --text:         #2a1a0e;
+  --text2:        #5a3e2b;
+  --text-muted:   #9c7d65;
+  --greece:       #1a6fa8;
+  --rome:         #9b2226;
+  --egypt:        #c97b1a;
+  --shadow-sm: 0 1px 4px rgba(44,20,10,.10);
+  --shadow-md: 0 4px 16px rgba(44,20,10,.13);
+  --shadow-lg: 0 8px 32px rgba(44,20,10,.16);
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --font-serif: Georgia, 'Times New Roman', serif;
+  --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --nav-h: 68px;
 }
 
-function Navbar({ page, setPage, searchQuery, setSearchQuery, onSearch }) {
-  const nav = [['home','Главная'],['timeline','Хронология'],['persons','Личности'],['artifacts','Артефакты'],['regions','Цивилизации'],['articles','Статьи']];
-  const handleKey = e => { if (e.key==='Enter' && searchQuery.trim()) onSearch(); };
-  return (
-    <nav className="navbar">
-      <div className="navbar__inner">
-        <span className="navbar__logo" onClick={()=>setPage('home')}>
-          Antiquity <span>Alive</span>
-        </span>
-        <ul className="navbar__links">
-          {nav.map(([id,label])=>(
-            <li key={id}><button className={page===id?'active':''} onClick={()=>setPage(id)}>{label}</button></li>
-          ))}
-        </ul>
-        <div className="navbar__search">
-          <input
-            type="text" placeholder="Поиск…"
-            value={searchQuery} onChange={e=>setSearchQuery(e.target.value)}
-            onKeyDown={handleKey}
-          />
-          <button onClick={()=>{ if(searchQuery.trim()) onSearch(); }}>🔍</button>
-        </div>
-      </div>
-    </nav>
-  );
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+img { display: block; max-width: 100%; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-light); text-decoration: underline; }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: var(--primary);
+  border-bottom: 3px solid var(--gold);
+  z-index: 999;
+  display: flex; align-items: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.navbar__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+  width: 100%; display: flex; align-items: center; gap: 1rem;
+}
+.navbar__logo {
+  font-family: var(--font-serif);
+  font-size: 1.4rem; font-weight: bold;
+  color: var(--gold) !important; white-space: nowrap;
+  cursor: pointer; text-decoration: none !important;
+  letter-spacing: .5px; flex-shrink: 0;
+}
+.navbar__logo span { color: rgba(255,255,255,.75); font-size: .8em; }
+.navbar__links {
+  display: flex; align-items: center; gap: .15rem;
+  list-style: none; flex: 1;
+}
+.navbar__links button {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,.85); padding: .4rem .8rem;
+  border-radius: var(--r-sm); font-size: .9rem; font-weight: 500;
+  transition: background .2s, color .2s;
+}
+.navbar__links button:hover,
+.navbar__links button.active {
+  background: rgba(201,150,58,.25); color: var(--gold);
+}
+.navbar__search { display: flex; align-items: center; gap: .5rem; }
+.navbar__search input {
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28);
+  border-radius: var(--r-md); padding: .38rem .85rem;
+  color: #fff; font-size: .87rem; width: 190px; outline: none;
+  transition: all .2s;
+}
+.navbar__search input::placeholder { color: rgba(255,255,255,.45); }
+.navbar__search input:focus {
+  width: 230px; background: rgba(255,255,255,.2);
+  border-color: var(--gold);
+}
+.navbar__search button {
+  background: var(--gold); border: none; border-radius: var(--r-sm);
+  padding: .38rem .8rem; color: var(--primary-dark); font-weight: 700;
+  cursor: pointer; font-size: .85rem; transition: background .2s;
+}
+.navbar__search button:hover { background: var(--gold-light); }
+
+/* ── LAYOUT ─────────────────────────────────────────────── */
+.page-wrap { padding-top: var(--nav-h); min-height: 100vh; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 2.5rem 0; }
+
+.sec-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem; color: var(--primary);
+  position: relative; padding-bottom: .5rem; margin-bottom: 1.75rem;
+}
+.sec-title::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 48px; height: 3px;
+  background: var(--gold); border-radius: 2px;
+}
+.sec-header {
+  display: flex; align-items: baseline;
+  justify-content: space-between; flex-wrap: wrap;
+  gap: .75rem; margin-bottom: 1.75rem;
+}
+.sec-link {
+  font-size: .88rem; color: var(--text-muted); cursor: pointer;
+}
+.sec-link:hover { color: var(--primary); }
+
+.page-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff; padding: 3.5rem 1.5rem 2.5rem; text-align: center;
+  margin-bottom: 2.5rem;
+}
+.page-header h1 {
+  font-size: clamp(1.7rem, 4vw, 2.6rem); color: #fff;
+  font-family: var(--font-serif); margin-bottom: .6rem;
+}
+.page-header p { color: rgba(255,255,255,.75); font-size: 1rem; max-width: 620px; margin: 0 auto; }
+
+.hero {
+  background: linear-gradient(135deg, #3d0f0f 0%, #1a0a0a 60%, #0d0505 100%);
+  color: #fff; padding: 5rem 1.5rem 4rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 20% 50%, rgba(201,150,58,.12) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 50%, rgba(124,29,29,.3) 0%, transparent 50%);
+}
+.hero__content { position: relative; max-width: 720px; margin: 0 auto; }
+.hero__badge {
+  display: inline-block;
+  background: rgba(201,150,58,.18); border: 1px solid var(--gold);
+  color: var(--gold); padding: .3rem 1.1rem; border-radius: 20px;
+  font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  color: #fff; margin-bottom: 1.1rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,.4); line-height: 1.2;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero p { font-size: 1.1rem; color: rgba(255,255,255,.77); margin-bottom: 2rem; line-height: 1.7; }
+.hero__btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .65rem 1.5rem; border-radius: var(--r-md);
+  font-size: .95rem; font-weight: 600; cursor: pointer;
+  transition: all .2s; border: 2px solid transparent;
+  text-decoration: none !important;
+}
+.btn-gold { background: var(--gold); color: var(--primary-dark); border-color: var(--gold); }
+.btn-gold:hover { background: var(--gold-light); color: var(--primary-dark); }
+.btn-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,.55); }
+.btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.1); color: #fff; }
+.btn-soft { background: var(--bg2); color: var(--primary); border-color: var(--border); }
+.btn-soft:hover { background: var(--border-light); }
+.stats-bar {
+  background: var(--primary); color: #fff;
+  padding: 2rem 1.5rem;
+  display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+  border-top: 3px solid var(--gold); border-bottom: 3px solid var(--gold);
+}
+.stat__num {
+  font-family: var(--font-serif); font-size: 2.3rem;
+  color: var(--gold); font-weight: bold; display: block;
+}
+.stat__label {
+  font-size: .82rem; color: rgba(255,255,255,.65);
+  text-transform: uppercase; letter-spacing: 1px;
 }
 
-function Footer({ setPage }) {
-  return (
-    <footer className="footer">
-      <div className="footer__inner">
-        <div>
-          <div className="footer__brand">Antiquity Alive</div>
-          <p className="footer__desc">Иистории античного мира.</p>
-        </div>
-        <div>
-          <h4>Разделы</h4>
-          <ul>
-            {[['timeline','Хронология'],['persons','Личности'],['artifacts','Артефакты'],['regions','Цивилизации'],['articles','Статьи']].map(([id,l])=>(
-              <li key={id}><span onClick={()=>setPage(id)}>{l}</span></li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h4>Цивилизации</h4>
-          <ul>
-            {REGIONS.map(r=><li key={r.id}><span onClick={()=>setPage('region-'+r.id)}>{r.name}</span></li>)}
-          </ul>
-        </div>
-      </div>
-      <div className="footer__bottom">
-        <p>© 2025 Antiquity Alive — учебный проект. В.А. Василькова, БПИ243, НИУ ВШЭ. Соответствует ГОСТ ЕСПД.</p>
-      </div>
-    </footer>
-  );
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  gap: 1.5rem;
 }
-
-function ImgCard({ src, alt, className, fallback }) {
-  const [err, setErr] = useState(false);
-  if (err || !src) return <div className={className + ' card__img-placeholder'}>{fallback||'🏛️'}</div>;
-  return <img src={src} alt={alt||''} className={className} onError={()=>setErr(true)} loading="lazy" />;
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .22s, box-shadow .22s;
+  display: flex; flex-direction: column;
+  cursor: pointer;
 }
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
 
-function HomePage({ setPage }) {
-  return (
-    <>
-      <section className="hero">
-        <div className="hero__content">
-          <div className="hero__badge">✦ Исследуйте античный мир ✦</div>
-          <h1>История Античности —<br /><em>живая</em> и доступная</h1>
-          <p>Откройте для себя Грецию, Рим и Египет: великие личности, монументальные сооружения, три тысячелетия истории.</p>
-          <div className="hero__btns">
-            <button className="btn btn-gold" onClick={()=>setPage('timeline')}>📅 Хронология</button>
-            <button className="btn btn-outline" onClick={()=>setPage('regions')}>🗺️ Цивилизации</button>
-          </div>
-        </div>
-      </section>
-
-      <div className="stats-bar">
-        {[['8', 'Личностей'],[String(ARTIFACTS.length),'Артефактов'],[String(TIMELINE.length),'Событий'],[String(ARTICLES.length),'Статей']].map(([n,l])=>(
-          <div key={l} style={{textAlign:'center'}}>
-            <span className="stat__num">{n}</span>
-            <span className="stat__label">{l}</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="container section">
-        <div className="sec-header">
-          <h2 className="sec-title">Исторические личности</h2>
-          <span className="sec-link" onClick={()=>setPage('persons')}>Все личности →</span>
-        </div>
-        <div className="cards-grid">
-          {PERSONS.slice(0,3).map(p=>(
-            <div key={p.id} className="card" onClick={()=>setPage('person-'+p.id)}>
-              <ImgCard src={p.img} alt={p.name} className="card__img" fallback={p.emoji} />
-              <div className="card__body">
-                <span className={`card__tag card__tag--${p.region}`}>{p.regionLabel}</span>
-                <div className="card__title">{p.name}</div>
-                <div className="card__meta">{p.period} · {p.role}</div>
-                <div className="card__desc">{p.shortDesc}</div>
-                <span className="card__link">Биография →</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <section style={{background:'var(--bg2)',padding:'2.5rem 0'}}>
-        <div className="container">
-          <div className="sec-header">
-            <h2 className="sec-title">Знаменитые артефакты</h2>
-            <span className="sec-link" onClick={()=>setPage('artifacts')}>Все артефакты →</span>
-          </div>
-          <div className="cards-grid">
-            {ARTIFACTS.slice(0,3).map(a=>(
-              <div key={a.id} className="card" onClick={()=>setPage('artifact-'+a.id)}>
-                <ImgCard src={a.img} alt={a.name} className="card__img" fallback={a.emoji} />
-                <div className="card__body">
-                  <span className={`card__tag card__tag--${a.region}`}>{a.regionLabel}</span>
-                  <div className="card__title">{a.name}</div>
-                  <div className="card__meta">{a.type} · {a.year}</div>
-                  <div className="card__desc">{a.shortDesc}</div>
-                  <span className="card__link">Подробнее →</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <div className="container section">
-        <div className="sec-header">
-          <h2 className="sec-title">Ключевые события</h2>
-          <span className="sec-link" onClick={()=>setPage('timeline')}>Полная хронология →</span>
-        </div>
-        <div className="events-grid">
-          {TIMELINE.slice(-4).reverse().map(ev=>(
-            <div key={ev.id} className="event-card" style={{borderLeft:`4px solid ${REG_COLOR[ev.region]}`}}>
-              <div className="event-card__year">{ev.year}</div>
-              <div className="event-card__title">{ev.title}</div>
-              <div className="event-card__desc">{ev.desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <section className="cta-section">
-        <h2>Исследуйте три великих цивилизации</h2>
-        <p>Греция, Рим, Египет — каждая уникальна. Узнайте об их вкладе в историю.</p>
-        <button className="btn btn-gold" onClick={()=>setPage('regions')}>Перейти к цивилизациям</button>
-      </section>
-    </>
-  );
+.card__img {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  background: var(--bg2);
 }
-
-function TimelinePage() {
-  const [filter, setFilter] = useState('all');
-  const filtered = filter==='all' ? TIMELINE : TIMELINE.filter(e=>e.region===filter);
-  return (
-    <>
-      <div className="page-header"><h1>📅 Хронология античного мира</h1><p>Ключевые события от зарождения цивилизаций до падения Западного Рима</p></div>
-      <div className="container">
-        <div className="filter-bar">
-          {[['all','Все события'],['greece','Греция'],['rome','Рим'],['egypt','Египет']].map(([v,l])=>(
-            <button key={v} className={`filter-btn${filter===v?' active':''}`} onClick={()=>setFilter(v)}>{l}</button>
-          ))}
-        </div>
-        <div className="timeline">
-          {filtered.map(ev=>(
-            <div className="tl-item" key={ev.id}>
-              <div className="tl-spacer" />
-              <div className="tl-dot" style={{background:REG_COLOR[ev.region]}} />
-              <div className="tl-content">
-                <div className="tl-year" style={{color:REG_COLOR[ev.region]}}>{ev.year}</div>
-                <div className="tl-title">{ev.title}</div>
-                <div className="tl-desc">{ev.desc}</div>
-                <span className={`card__tag card__tag--${ev.region}`} style={{marginTop:'.5rem',display:'inline-block'}}>
-                  {ev.region==='greece'?'Греция':ev.region==='rome'?'Рим':'Египет'}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
+.card__img-placeholder {
+  width: 100%; aspect-ratio: 16/9;
+  background: linear-gradient(135deg, var(--bg2), var(--border-light));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 3.5rem; color: var(--border);
+  flex-shrink: 0;
 }
-
-function PersonsPage({ setPage }) {
-  const [filter, setFilter] = useState('all');
-  const [search, setSearch] = useState('');
-  const list = PERSONS.filter(p=>{
-    const mr = filter==='all'||p.region===filter;
-    const ms = !search || p.name.toLowerCase().includes(search.toLowerCase()) || p.shortDesc.toLowerCase().includes(search.toLowerCase());
-    return mr && ms;
-  });
-  return (
-    <>
-      <div className="page-header"><h1>👤 Исторические личности</h1><p>Философы, полководцы, правители и учёные античного мира</p></div>
-      <div className="container">
-        <input className="search-bar" style={{display:'block',width:'100%',padding:'.7rem 1rem',marginBottom:'1.25rem',border:'2px solid var(--border)',borderRadius:'var(--r-md)',fontSize:'1rem',background:'var(--surface)',outline:'none'}} type="text" placeholder="Поиск по имени…" value={search} onChange={e=>setSearch(e.target.value)} />
-        <div className="filter-bar">
-          {[['all','Все'],['greece','Греция'],['rome','Рим'],['egypt','Египет']].map(([v,l])=>(
-            <button key={v} className={`filter-btn${filter===v?' active':''}`} onClick={()=>setFilter(v)}>{l}</button>
-          ))}
-        </div>
-        {list.length===0 ? <div className="empty"><div className="empty__icon">🔍</div><h3>Ничего не найдено</h3></div> : (
-          <div className="cards-grid">
-            {list.map(p=>(
-              <div key={p.id} className="card" onClick={()=>setPage('person-'+p.id)}>
-                <ImgCard src={p.img} alt={p.name} className="card__img" fallback={p.emoji} />
-                <div className="card__body">
-                  <span className={`card__tag card__tag--${p.region}`}>{p.regionLabel}</span>
-                  <div className="card__title">{p.name}</div>
-                  <div className="card__meta">{p.period} · {p.role}</div>
-                  <div className="card__desc">{p.shortDesc}</div>
-                  <span className="card__link">Читать биографию →</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
-  );
+.card__body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; gap: .45rem; }
+.card__tag {
+  display: inline-block; font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: .18rem .6rem; border-radius: 20px; width: fit-content;
+  background: var(--bg2); color: var(--text2);
 }
+.card__tag--greece { background: #dbeafe; color: var(--greece); }
+.card__tag--rome   { background: #fde8e8; color: var(--rome); }
+.card__tag--egypt  { background: #fef3c7; color: #92400e; }
+.card__title { font-family: var(--font-serif); font-size: 1.12rem; color: var(--text); line-height: 1.35; }
+.card__meta  { font-size: .78rem; color: var(--text-muted); }
+.card__desc  { font-size: .87rem; color: var(--text2); line-height: 1.55; flex: 1; }
+.card__link  { margin-top: auto; color: var(--primary); font-size: .87rem; font-weight: 600; }
 
-function PersonDetail({ id, setPage }) {
-  const p = PERSONS.find(x=>x.id===id);
-  if (!p) return <div className="container section"><p>Личность не найдена.</p></div>;
-  const others = PERSONS.filter(x=>x.id!==id&&x.region===p.region).slice(0,2);
-  return (
-    <div className="container" style={{paddingTop:'2rem',paddingBottom:'3rem'}}>
-      <div className="breadcrumb">
-        <span onClick={()=>setPage('home')}>Главная</span><span className="sep">›</span>
-        <span onClick={()=>setPage('persons')}>Личности</span><span className="sep">›</span>
-        <span style={{color:'var(--text-muted)',cursor:'default'}}>{p.name}</span>
-      </div>
-      <div className="detail-layout">
-        <div className="detail-content">
-          <span className={`card__tag card__tag--${p.region}`} style={{marginBottom:'.75rem',display:'inline-block'}}>{p.regionLabel}</span>
-          <h1>{p.name}</h1>
-          <p style={{fontSize:'1.05rem',marginBottom:'1.5rem'}}>{p.shortDesc}</p>
-          <h2>Биография</h2>
-          {p.bio.map((b,i)=><p key={i}>{b}</p>)}
-          <h2>Достижения</h2>
-          <ul>{p.achievements.map((a,i)=><li key={i}>{a}</li>)}</ul>
-          <h2>Теги</h2>
-          <div className="tags-row">{p.tags.map(t=><span key={t} className="tag">{t}</span>)}</div>
-          {others.length>0 && <>
-            <h2>Другие личности</h2>
-            <div className="related-row">
-              {others.map(o=>(
-                <div key={o.id} className="related-card" onClick={()=>setPage('person-'+o.id)}>
-                  <span className="related-card__icon">{o.emoji}</span>
-                  <div><div className="related-card__name">{o.name}</div><div className="related-card__sub">{o.role}</div></div>
-                </div>
-              ))}
-            </div>
-          </>}
-        </div>
-        <aside className="detail-sidebar">
-          <div className="detail-sidebar__thumb">
-            <ImgCard src={p.img} alt={p.name} className="" fallback={p.emoji} />
-          </div>
-          <table className="info-table">
-            <tbody>
-              {[['Имя',p.name],['Роль',p.role],['Период',p.period],['Рождение',p.born],['Смерть',p.died],['Цивилизация',p.regionLabel]].map(([k,v])=>(
-                <tr key={k}><td>{k}</td><td>{v}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </aside>
-      </div>
-    </div>
-  );
+.filter-bar { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+.filter-btn {
+  padding: .38rem 1rem; border: 1px solid var(--border);
+  border-radius: 20px; background: var(--surface); color: var(--text2);
+  font-size: .83rem; font-weight: 500; cursor: pointer; transition: all .18s;
 }
+.filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+.filter-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
 
-function ArtifactsPage({ setPage }) {
-  const [filter, setFilter] = useState('all');
-  const [typeFilter, setTypeFilter] = useState('all');
-  const types = ['all', ...new Set(ARTIFACTS.map(a=>a.type))];
-  const list = ARTIFACTS.filter(a=>(filter==='all'||a.region===filter)&&(typeFilter==='all'||a.type===typeFilter));
-  return (
-    <>
-      <div className="page-header"><h1>Артефакты и памятники</h1><p>Архитектура, скульптура и литература, пережившая тысячелетия</p></div>
-      <div className="container">
-        <div className="filter-bar">
-          {[['all','Все цивилизации'],['greece','Греция'],['rome','Рим'],['egypt','Египет']].map(([v,l])=>(
-            <button key={v} className={`filter-btn${filter===v?' active':''}`} onClick={()=>setFilter(v)}>{l}</button>
-          ))}
-        </div>
-        <div className="filter-bar" style={{marginTop:'-.75rem'}}>
-          {types.map(t=>(
-            <button key={t} className={`filter-btn${typeFilter===t?' active':''}`} onClick={()=>setTypeFilter(t)}>{t==='all'?'Все типы':t}</button>
-          ))}
-        </div>
-        {list.length===0 ? <div className="empty"><div className="empty__icon">🏺</div><h3>Ничего не найдено</h3></div> : (
-          <div className="cards-grid">
-            {list.map(a=>(
-              <div key={a.id} className="card" onClick={()=>setPage('artifact-'+a.id)}>
-                <ImgCard src={a.img} alt={a.name} className="card__img" fallback={a.emoji} />
-                <div className="card__body">
-                  <span className={`card__tag card__tag--${a.region}`}>{a.regionLabel}</span>
-                  <div className="card__title">{a.name}</div>
-                  <div className="card__meta">{a.type} · {a.year}</div>
-                  <div className="card__desc">{a.shortDesc}</div>
-                  <span className="card__link">Подробнее →</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
-  );
+.search-bar { display: flex; gap: .75rem; margin-bottom: 1.75rem; }
+.search-bar input {
+  flex: 1; padding: .72rem 1rem;
+  border: 2px solid var(--border); border-radius: var(--r-md);
+  font-size: 1rem; background: var(--surface); color: var(--text); outline: none;
+  transition: border-color .2s;
 }
+.search-bar input:focus { border-color: var(--primary); }
 
-function ArtifactDetail({ id, setPage }) {
-  const a = ARTIFACTS.find(x=>x.id===id);
-  if (!a) return <div className="container section"><p>Артефакт не найден.</p></div>;
-  const related = ARTIFACTS.filter(x=>x.id!==id&&x.region===a.region).slice(0,2);
-  return (
-    <div className="container" style={{paddingTop:'2rem',paddingBottom:'3rem'}}>
-      <div className="breadcrumb">
-        <span onClick={()=>setPage('home')}>Главная</span><span className="sep">›</span>
-        <span onClick={()=>setPage('artifacts')}>Артефакты</span><span className="sep">›</span>
-        <span style={{color:'var(--text-muted)',cursor:'default'}}>{a.name}</span>
-      </div>
-      <div className="detail-layout">
-        <div className="detail-content">
-          <span className={`card__tag card__tag--${a.region}`} style={{marginBottom:'.75rem',display:'inline-block'}}>{a.regionLabel}</span>
-          <h1>{a.name}</h1>
-          <p style={{fontSize:'1.05rem',marginBottom:'1.5rem'}}>{a.shortDesc}</p>
-          <ImgCard src={a.img} alt={a.name} className="article-hero-img" fallback={a.emoji} />
-          <h2>Описание</h2>
-          {a.description.map((d,i)=><p key={i}>{d}</p>)}
-          <h2>Историческое значение</h2>
-          <p>{a.significance}</p>
-          <h2>Теги</h2>
-          <div className="tags-row">{a.tags.map(t=><span key={t} className="tag">{t}</span>)}</div>
-          {related.length>0 && <>
-            <h2>Похожие артефакты</h2>
-            <div className="related-row">
-              {related.map(r=>(
-                <div key={r.id} className="related-card" onClick={()=>setPage('artifact-'+r.id)}>
-                  <span className="related-card__icon">{r.emoji}</span>
-                  <div><div className="related-card__name">{r.name}</div><div className="related-card__sub">{r.type}</div></div>
-                </div>
-              ))}
-            </div>
-          </>}
-        </div>
-        <aside className="detail-sidebar">
-          <div className="detail-sidebar__thumb">
-            <ImgCard src={a.img} alt={a.name} className="" fallback={a.emoji} />
-          </div>
-          <table className="info-table">
-            <tbody>
-              {[['Название',a.name],['Тип',a.type],['Датировка',a.year],['Местонахождение',a.location],['Цивилизация',a.regionLabel]].map(([k,v])=>(
-                <tr key={k}><td>{k}</td><td>{v}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </aside>
-      </div>
-    </div>
-  );
+.timeline { position: relative; padding: 1rem 0; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 50%; top: 0; bottom: 0; width: 2px;
+  background: var(--border); transform: translateX(-50%);
 }
-
-function RegionsPage({ setPage }) {
-  return (
-    <>
-      <div className="page-header"><h1>Великие цивилизации</h1><p>Три цивилизации, изменившие мир</p></div>
-      <div className="container section">
-        <div className="regions-grid">
-          {REGIONS.map(r=>(
-            <div key={r.id} className="region-card" onClick={()=>setPage('region-'+r.id)}>
-              <div className="region-card__banner" style={{background:`linear-gradient(135deg,${r.color}dd,${r.color}88)`}}>
-                <ImgCard src={r.img} alt={r.name} className="" fallback="" />
-                <span className="rc-emoji">{r.emoji}</span>
-              </div>
-              <div className="region-card__body">
-                <div className="region-card__name">{r.name}</div>
-                <div className="region-card__period">{r.period}</div>
-                <div className="region-card__desc">{r.shortDesc}</div>
-                <span className="region-card__cta" style={{color:r.color}}>Узнать больше →</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
+.tl-item { display: flex; gap: 2rem; margin-bottom: 2rem; position: relative; }
+.tl-item:nth-child(even) { flex-direction: row-reverse; }
+.tl-content {
+  flex: 1; background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--r-md); padding: 1.2rem;
+  box-shadow: var(--shadow-sm); position: relative;
 }
-
-function RegionDetail({ id, setPage }) {
-  const r = REGIONS.find(x=>x.id===id);
-  if (!r) return <div className="container section"><p>Цивилизация не найдена.</p></div>;
-  const rPersons = PERSONS.filter(p=>r.personIds.includes(p.id));
-  const rArtifacts = ARTIFACTS.filter(a=>r.artifactIds.includes(a.id));
-  return (
-    <div>
-      <div style={{background:`linear-gradient(135deg,${r.color}ee,${r.color}99)`,padding:'4rem 1.5rem 3rem',textAlign:'center',color:'#fff',marginBottom:'2.5rem',position:'relative',overflow:'hidden'}}>
-        <div style={{fontSize:'5rem',marginBottom:'1rem'}}>{r.emoji}</div>
-        <h1 style={{fontFamily:'Georgia,serif',fontSize:'2.5rem',marginBottom:'.5rem',color:'#fff'}}>{r.name}</h1>
-        <p style={{color:'rgba(255,255,255,.82)'}}>{r.period}</p>
-      </div>
-      <div className="container">
-        <div className="breadcrumb">
-          <span onClick={()=>setPage('home')}>Главная</span><span className="sep">›</span>
-          <span onClick={()=>setPage('regions')}>Цивилизации</span><span className="sep">›</span>
-          <span style={{color:'var(--text-muted)',cursor:'default'}}>{r.name}</span>
-        </div>
-        <div className="detail-layout">
-          <div className="detail-content">
-            <h2>Обзор</h2>
-            {r.fullDesc.map((p,i)=><p key={i}>{p}</p>)}
-            <h2>Ключевые факты</h2>
-            <ul>{r.keyFacts.map((f,i)=><li key={i}>{f}</li>)}</ul>
-            {rPersons.length>0 && <>
-              <h2>Известные личности</h2>
-              <div className="related-row">
-                {rPersons.map(p=>(
-                  <div key={p.id} className="related-card" onClick={()=>setPage('person-'+p.id)}>
-                    <span className="related-card__icon">{p.emoji}</span>
-                    <div><div className="related-card__name">{p.name}</div><div className="related-card__sub">{p.role}</div></div>
-                  </div>
-                ))}
-              </div>
-            </>}
-            {rArtifacts.length>0 && <>
-              <h2>Известные артефакты</h2>
-              <div className="related-row">
-                {rArtifacts.map(a=>(
-                  <div key={a.id} className="related-card" onClick={()=>setPage('artifact-'+a.id)}>
-                    <span className="related-card__icon">{a.emoji}</span>
-                    <div><div className="related-card__name">{a.name}</div><div className="related-card__sub">{a.type}</div></div>
-                  </div>
-                ))}
-              </div>
-            </>}
-          </div>
-          <aside className="detail-sidebar">
-            <h3 style={{fontFamily:'Georgia,serif',marginBottom:'1rem',color:'var(--primary)'}}>Справочно</h3>
-            <table className="info-table">
-              <tbody>
-                {[['Период',r.period],['Столица',r.capital],['Религия',r.religion],['Язык',r.language],['Личностей',String(rPersons.length)],['Артефактов',String(rArtifacts.length)]].map(([k,v])=>(
-                  <tr key={k}><td>{k}</td><td>{v}</td></tr>
-                ))}
-              </tbody>
-            </table>
-          </aside>
-        </div>
-      </div>
-    </div>
-  );
+.tl-item:nth-child(odd) .tl-content { text-align: right; }
+.tl-dot {
+  position: absolute; left: 50%; top: 1.2rem;
+  transform: translateX(-50%);
+  width: 14px; height: 14px;
+  border-radius: 50%; background: var(--gold);
+  border: 3px solid var(--primary); z-index: 1;
 }
-
-function ArticlesPage({ setPage }) {
-  const [filter, setFilter] = useState('all');
-  const list = filter==='all' ? ARTICLES : ARTICLES.filter(a=>a.region===filter);
-  return (
-    <>
-      <div className="page-header"><h1>📖 Статьи</h1><p>Подробные материалы по истории, культуре и философии античности</p></div>
-      <div className="container">
-        <div className="filter-bar">
-          {[['all','Все'],['greece','Греция'],['rome','Рим'],['egypt','Египет']].map(([v,l])=>(
-            <button key={v} className={`filter-btn${filter===v?' active':''}`} onClick={()=>setFilter(v)}>{l}</button>
-          ))}
-        </div>
-        <div className="cards-grid">
-          {list.map(a=>(
-            <div key={a.id} className="card" onClick={()=>setPage('article-'+a.id)}>
-              <ImgCard src={a.img} alt={a.title} className="card__img" fallback={a.emoji} />
-              <div className="card__body">
-                <span className={`card__tag card__tag--${a.region}`}>{a.category}</span>
-                <div className="card__title">{a.title}</div>
-                <div className="card__desc">{a.shortDesc}</div>
-                <span className="card__link">Читать статью →</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  );
+.tl-year {
+  font-family: var(--font-serif); font-size: 1.05rem;
+  font-weight: bold; color: var(--primary); margin-bottom: .25rem;
 }
-
-function ArticleDetail({ id, setPage }) {
-  const a = ARTICLES.find(x=>x.id===id);
-  if (!a) return <div className="container section"><p>Статья не найдена.</p></div>;
-  return (
-    <div className="container" style={{paddingTop:'2rem',paddingBottom:'3rem'}}>
-      <div className="breadcrumb">
-        <span onClick={()=>setPage('home')}>Главная</span><span className="sep">›</span>
-        <span onClick={()=>setPage('articles')}>Статьи</span><span className="sep">›</span>
-        <span style={{color:'var(--text-muted)',cursor:'default'}}>{a.title}</span>
-      </div>
-      <span className={`card__tag card__tag--${a.region}`} style={{marginBottom:'.75rem',display:'inline-block'}}>{a.category}</span>
-      <h1 style={{fontFamily:'Georgia,serif',fontSize:'2rem',color:'var(--primary)',marginBottom:'1rem'}}>{a.title}</h1>
-      <p style={{fontSize:'1.05rem',color:'var(--text2)',marginBottom:'1.5rem'}}>{a.shortDesc}</p>
-      <ImgCard src={a.img} alt={a.title} className="article-hero-img" fallback={a.emoji} />
-      <div className="article-body">
-        {a.body.map((s,i)=>(
-          <div key={i}>
-            <h2>{s.heading}</h2>
-            <p>{s.text}</p>
-          </div>
-        ))}
-        <h2>Теги</h2>
-        <div className="tags-row">{a.tags.map(t=><span key={t} className="tag">{t}</span>)}</div>
-      </div>
-    </div>
-  );
+.tl-title { font-size: .97rem; font-weight: 600; margin-bottom: .3rem; }
+.tl-desc  { font-size: .85rem; color: var(--text2); }
+.tl-spacer { flex: 1; }
+.detail-layout { display: grid; grid-template-columns: 1fr 300px; gap: 2.5rem; align-items: start; }
+.detail-sidebar {
+  background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: var(--r-lg); padding: 1.5rem; box-shadow: var(--shadow-sm);
+  position: sticky; top: calc(var(--nav-h) + 1rem);
 }
-
-function SearchPage({ initQuery, setPage }) {
-  const [q, setQ] = useState(initQuery||'');
-  const results = searchAll(q);
-  const navigate = (r) => {
-    if (r.type==='person') setPage('person-'+r.id);
-    else if (r.type==='artifact') setPage('artifact-'+r.id);
-    else if (r.type==='region') setPage('region-'+r.id);
-    else if (r.type==='article') setPage('article-'+r.id);
-    else setPage('timeline');
-  };
-  return (
-    <>
-      <div className="page-header"><h1>🔍 Поиск</h1><p>Личности, артефакты, цивилизации, события, статьи</p></div>
-      <div className="container">
-        <div className="search-bar">
-          <input type="text" placeholder="Введите запрос — например, «Цезарь», «Парфенон», «Рим»…" value={q} onChange={e=>setQ(e.target.value)} autoFocus />
-        </div>
-        {q.trim() && <p className="search-res-count">{results.length>0?`Найдено: ${results.length}`:'Ничего не найдено'}</p>}
-        {results.map(r=>(
-          <div key={r.id+r.type} className="search-res" onClick={()=>navigate(r)}>
-            <span className="search-res__icon">{r.emoji}</span>
-            <div>
-              <div className="search-res__type">{r.label}</div>
-              <div className="search-res__title">{r.title}</div>
-              <div className="search-res__desc">{r.desc}</div>
-            </div>
-          </div>
-        ))}
-        {q.trim() && results.length===0 && (
-          <div className="empty"><div className="empty__icon">🔍</div><h3>Ничего не найдено по запросу «{q}»</h3><p>Попробуйте другой запрос</p></div>
-        )}
-        {!q.trim() && <div className="empty"><div className="empty__icon">⌨️</div><h3>Введите запрос</h3><p>Поиск работает по всем разделам сайта</p></div>}
-      </div>
-    </>
-  );
+.detail-sidebar__thumb {
+  width: 100%; min-height: 200px; border-radius: var(--r-md);
+  margin-bottom: 1.2rem; overflow: hidden;
+  background: var(--bg2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 6rem; color: var(--border);
 }
-
-
-export default function App() {
-  const [page, _setPage] = useState('home');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchInit, setSearchInit] = useState('');
-
-  const setPage = useCallback((p) => {
-    _setPage(p);
-    window.scrollTo(0,0);
-  }, []);
-
-  const handleSearch = () => {
-    setSearchInit(searchQuery);
-    setPage('search');
-  };
-
-  const renderPage = () => {
-    if (page === 'home')     return <HomePage setPage={setPage} />;
-    if (page === 'timeline') return <TimelinePage />;
-    if (page === 'persons')  return <PersonsPage setPage={setPage} />;
-    if (page === 'artifacts')return <ArtifactsPage setPage={setPage} />;
-    if (page === 'regions')  return <RegionsPage setPage={setPage} />;
-    if (page === 'articles') return <ArticlesPage setPage={setPage} />;
-    if (page === 'search')   return <SearchPage initQuery={searchInit} setPage={setPage} />;
-    if (page.startsWith('person-'))   return <PersonDetail id={page.replace('person-','')} setPage={setPage} />;
-    if (page.startsWith('artifact-')) return <ArtifactDetail id={page.replace('artifact-','')} setPage={setPage} />;
-    if (page.startsWith('region-'))   return <RegionDetail id={page.replace('region-','')} setPage={setPage} />;
-    if (page.startsWith('article-'))  return <ArticleDetail id={page.replace('article-','')} setPage={setPage} />;
-    return <HomePage setPage={setPage} />;
-  };
-
-  return (
-    <div className="page-wrap">
-      <Navbar page={page} setPage={setPage} searchQuery={searchQuery} setSearchQuery={setSearchQuery} onSearch={handleSearch} />
-      <main>{renderPage()}</main>
-      <Footer setPage={setPage} />
-    </div>
-  );
+.detail-sidebar__thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.info-table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+.info-table tr { border-bottom: 1px solid var(--border-light); }
+.info-table tr:last-child { border-bottom: none; }
+.info-table td { padding: .48rem 0; vertical-align: top; }
+.info-table td:first-child { color: var(--text-muted); font-weight: 500; width: 42%; }
+.detail-content h1 { font-size: 2rem; color: var(--primary); margin-bottom: .7rem; font-family: var(--font-serif); }
+.detail-content h2 {
+  font-size: 1.25rem; color: var(--text); margin: 1.7rem 0 .7rem;
+  border-bottom: 1px solid var(--border-light); padding-bottom: .35rem;
+  font-family: var(--font-serif);
+}
+.detail-content p  { margin-bottom: .95rem; line-height: 1.75; color: var(--text2); }
+.detail-content ul { margin-bottom: .95rem; color: var(--text2); line-height: 1.7; padding-left: 1.4rem; }
+.breadcrumb {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .83rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-wrap: wrap;
+}
+.breadcrumb span { cursor: pointer; color: var(--primary); }
+.breadcrumb span:hover { text-decoration: underline; }
+.breadcrumb .sep { color: var(--text-muted); cursor: default; }
+.tags-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+.tag {
+  padding: .28rem .8rem; background: var(--bg2);
+  border: 1px solid var(--border); border-radius: 20px;
+  font-size: .82rem; color: var(--text2);
+}
+.related-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.related-card {
+  display: flex; align-items: center; gap: .7rem;
+  padding: .72rem 1rem; background: var(--surface);
+  border: 1px solid var(--border-light); border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm); flex: 1; min-width: 190px;
+  cursor: pointer; transition: box-shadow .2s;
+}
+.related-card:hover { box-shadow: var(--shadow-md); }
+.related-card__icon { font-size: 2rem; flex-shrink: 0; }
+.related-card__name { font-weight: 600; color: var(--primary); font-size: .95rem; }
+.related-card__sub  { font-size: .78rem; color: var(--text-muted); }
+.regions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+.region-card {
+  border-radius: var(--r-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: transform .22s, box-shadow .22s;
+}
+.region-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.region-card__banner {
+  height: 150px; display: flex; align-items: center; justify-content: center;
+  font-size: 4.5rem; position: relative; overflow: hidden;
+}
+.region-card__banner img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: .45;
+}
+.region-card__banner .rc-emoji {
+  position: relative; z-index: 1; text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+.region-card__body {
+  background: var(--surface); padding: 1.25rem;
+  border: 1px solid var(--border-light); border-top: none;
+}
+.region-card__name { font-family: var(--font-serif); font-size: 1.2rem; margin-bottom: .3rem; }
+.region-card__period { font-size: .78rem; color: var(--text-muted); margin-bottom: .5rem; }
+.region-card__desc { font-size: .86rem; color: var(--text2); line-height: 1.5; }
+.region-card__cta { margin-top: .75rem; font-size: .87rem; font-weight: 600; }
+.search-res { background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--r-md); padding: 1.2rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-start; box-shadow: var(--shadow-sm); transition: box-shadow .2s; cursor: pointer; }
+.search-res:hover { box-shadow: var(--shadow-md); }
+.search-res__icon { font-size: 1.9rem; flex-shrink: 0; }
+.search-res__type  { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .2rem; }
+.search-res__title { font-family: var(--font-serif); font-size: 1.08rem; color: var(--primary); font-weight: bold; margin-bottom: .2rem; }
+.search-res__desc  { font-size: .86rem; color: var(--text2); }
+.search-res-count  { font-size: .88rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+.empty { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+.empty__icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.empty h3 { font-size: 1.25rem; color: var(--text2); margin-bottom: .5rem; }
+.article-hero-img {
+  width: 100%; max-height: 360px; object-fit: cover;
+  border-radius: var(--r-lg); margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-md);
+}
+.article-body { max-width: 780px; }
+.article-body h2 { font-family: var(--font-serif); font-size: 1.3rem; margin: 1.75rem 0 .7rem; color: var(--text); }
+.article-body p  { margin-bottom: 1rem; line-height: 1.8; color: var(--text2); }
+.article-body ul { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--text2); line-height: 1.75; }
+.events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+.event-card {
+  background: var(--surface); padding: 1rem;
+  border-radius: var(--r-md); border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.event-card__year { font-family: var(--font-serif); font-weight: bold; color: var(--primary); margin-bottom: .25rem; }
+.event-card__title { font-weight: 600; margin-bottom: .3rem; font-size: .95rem; }
+.event-card__desc  { font-size: .83rem; color: var(--text2); }
+.cta-section {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  padding: 3.5rem 1.5rem; text-align: center; color: #fff; margin-top: 1rem;
+}
+.cta-section h2 { font-family: var(--font-serif); font-size: 1.9rem; margin-bottom: .75rem; }
+.cta-section p  { color: rgba(255,255,255,.72); max-width: 520px; margin: 0 auto 1.75rem; }
+.footer {
+  background: var(--primary-dark); color: rgba(255,255,255,.72);
+  padding: 2.5rem 1.5rem 1.5rem; margin-top: 4rem;
+  border-top: 3px solid var(--gold);
+}
+.footer__inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; margin-bottom: 1.75rem;
+}
+.footer__brand { font-family: var(--font-serif); font-size: 1.15rem; color: var(--gold); margin-bottom: .7rem; }
+.footer__desc  { font-size: .86rem; line-height: 1.6; }
+.footer h4 { color: #fff; font-size: .88rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: .7rem; }
+.footer ul { list-style: none; padding: 0; }
+.footer ul li { margin-bottom: .35rem; }
+.footer ul li span { color: rgba(255,255,255,.6); font-size: .86rem; cursor: pointer; transition: color .2s; }
+.footer ul li span:hover { color: var(--gold); }
+.footer__bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 1.2rem; text-align: center; font-size: .78rem; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 900px) {
+  .detail-layout { grid-template-columns: 1fr; }
+  .detail-sidebar { position: static; }
+  .timeline::before { left: 18px; }
+  .tl-item, .tl-item:nth-child(even) { flex-direction: column; padding-left: 3rem; }
+  .tl-dot { left: 18px; }
+  .tl-spacer { display: none; }
+  .tl-item:nth-child(odd) .tl-content { text-align: left; }
+  .footer__inner { grid-template-columns: 1fr; }
+  .stats-bar { gap: 2rem; }
+}
+@media (max-width: 680px) {
+  .navbar__links { display: none; }
+  .navbar__search input { width: 140px; }
+  .hero { padding: 3rem 1rem 2.5rem; }
 }
